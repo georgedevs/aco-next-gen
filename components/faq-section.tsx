@@ -15,17 +15,17 @@ export function FaqSection() {
     {
       question: "How do I apply?",
       answer:
-        "Click the Take a free career quiz button and complete your career quiz. We'll follow up via email or Telegram with the next steps",
+        "Click the \"Take a free career quiz\" button and complete your career quiz. We'll follow up via email or Telegram with the next steps.",
     },
     {
       question: "Who can apply for this scholarship?",
       answer:
-        "You must be 18 to 40 years old, have a smartphone or laptop with internet access, be ready to commit fully, and have an interest in tech, business, or digital skills.",
+        "You must be 18–40 years old, have a smartphone or laptop with internet access, be ready to commit fully, and have an interest in tech, business, or digital skills.",
     },
     {
       question: "How much of the course fee is covered by the scholarship?",
       answer:
-        "The scholarship covers 80% of the total cost. You'll only pay the remaining 20% as a commitment fee to unlock access to training, tools, and support. The 20% is broken down like this (Registration fee to ₦10,000 to access the Live classes and Exam fee of ₦10,000 when it is time for the exam.)",
+        "The scholarship covers 80% of the total cost. You'll only pay the remaining 20% as a commitment fee to unlock access to training, tools, and support. The 20% is broken down like this (Registration fee – ₦10,000 to access the Live classes and Exam fee of ₦10,000 when it is time for the exam.)",
     },
     {
       question: "Why Exam fee?",
@@ -45,7 +45,7 @@ export function FaqSection() {
     {
       question: "Is this training online or in-person?",
       answer:
-        "All training is 100% online, making it accessible from anywhere with internet access. It is both an online and self-paced platform.",
+        "All training is 100% online, making it accessible from anywhere with internet access. It's both an online and self-paced platform.",
     },
     {
       question: "When does the program start?",
@@ -56,6 +56,26 @@ export function FaqSection() {
       question: "Will I receive a certificate?",
       answer:
         "Yes, you'll receive a certificate at the end of the scholarship program. You can also put your certificate on your LinkedIn profile and any other Social Media Platform. So at the end of the scholarship program levels ( Beginners, Intermediate, and Advanced Level, you will get a certificate that says you have gone through these levels, and this will also show your percentage score and other information.",
+    },
+    {
+      question: "Do I need prior experience?",
+      answer:
+        "No. The scholarship is beginner-friendly and designed to support learners at different levels — just come ready to learn.",
+    },
+    {
+      question: "How will I know if I've been selected?",
+      answer:
+        "You'll be notified via email or our telegram community with your onboarding link, and program access details.",
+    },
+    {
+      question: "Will I have a Portfolio to show to my Prospective employers at the end of the program?",
+      answer:
+        "Yes! At the end of your program, you will have a robust and functional portfolio to showcase to your employers.",
+    },
+    {
+      question: "Is there Job Support after the program?",
+      answer:
+        "Yes, there is. When you are done with your program, we will add you to our mentorship community where we send you legit job links and tell you how to apply, and we will also prepare you for your job interview. The idea is that we won't let you go until you get your first job or contract. Of course, this will not be immediate; it might take several months, but we will surely be with you all the way.",
     },
   ]
 

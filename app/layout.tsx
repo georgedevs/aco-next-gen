@@ -36,7 +36,7 @@ const kalam = Kalam({
 
 const comfortaa = Comfortaa({
   subsets: ["latin"],
-  variable: "--font-space-comfortaa",
+  variable: "--font-comfortaa",
   weight: ["400", "500", "600", "700"],
   display: "swap",
 })

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { X } from "lucide-react"
+import Link from "next/link"
 
 export function FloatingCta() {
   const [isVisible, setIsVisible] = useState(false)
@@ -47,7 +48,9 @@ export function FloatingCta() {
           <p className="text-xs opacity-90">Take our free career quiz now!</p>
         </div>
 
-        <Button className="w-full bg-white text-aco-orange hover:bg-gray-50 text-sm py-2">Take Free Career Quiz</Button>
+        <Link href="/quiz">
+          <Button className="w-full bg-white text-aco-orange hover:bg-gray-50 text-sm py-2">Take Free Career Quiz</Button>
+        </Link>
       </div>
     </div>
   )

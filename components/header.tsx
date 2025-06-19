@@ -2,14 +2,16 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Menu, X, Sparkles } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("")
+  const router = useRouter()
 
   const navItems = [
     { name: "About", href: "#about" },
@@ -18,6 +20,19 @@ export function Header() {
     { name: "Testimonials", href: "#testimonials" },
     { name: "FAQ", href: "#faq" },
   ]
+
+const quizClick = () => {
+    // Option 1: Navigate to internal route
+    router.push('/quiz')
+    
+    // Close mobile menu if it's open
+    if (isMenuOpen) {
+      setIsMenuOpen(false)
+      document.body.style.overflow = "unset"
+      document.documentElement.style.overflow = "unset"
+    }
+  }
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,6 +75,7 @@ export function Header() {
       setActiveSection(hash)
     }
     
+
     const handleClick = (e) => {
       const target = e.target.closest('a')
       if (target && target.href.includes('#')) {
@@ -96,7 +112,7 @@ export function Header() {
   return (
     <>
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 w-full overflow-x-hidden ${
         isScrolled ? "pt-4" : "bg-white/95 backdrop-blur-md py-0"
       }`}
     >
@@ -108,7 +124,7 @@ export function Header() {
       ></div>
       {/* Floating compact header - only shows when scrolled */}
       {isScrolled && (
-        <div className="w-full flex justify-center px-4">
+        <div className="w-full flex justify-center px-4 overflow-x-hidden">
           <div
             className="w-full max-w-4xl bg-white/95 backdrop-blur-xl shadow-2xl border border-gray-200/50 rounded-full px-6 py-3 transform transition-all duration-500 animate-in slide-in-from-top-2"
             style={{
@@ -151,6 +167,7 @@ export function Header() {
                 <Button
                   size="sm"
                   className="hidden sm:flex bg-gradient-to-r from-aco-orange to-orange-500 hover:from-orange-600 hover:to-aco-orange text-white font-medium px-4 py-2 rounded-full shadow-lg hover:shadow-aco-orange/30 transition-all duration-300 hover:scale-105"
+                  onClick={quizClick}
                 >
                   Take Free Career Quiz
                 </Button>
@@ -184,7 +201,7 @@ export function Header() {
 
       {/* Normal full header - only shows when not scrolled */}
       {!isScrolled && (
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-16 md:h-14 flex items-center justify-between transition-all duration-500">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-16 md:h-14 flex items-center justify-between transition-all duration-500 w-full max-w-full overflow-x-hidden">
           {/* Full Logo */}
           <div className="flex-shrink-0 group">
             <Link href="/" className="flex items-center">
@@ -221,7 +238,9 @@ export function Header() {
 
           {/* Right Side Actions - Full */}
           <div className="flex items-center space-x-3">
-            <Button className="hidden md:flex group bg-gradient-to-r from-aco-orange to-orange-500 hover:from-orange-600 hover:to-aco-orange text-white font-semibold px-6 py-2.5 rounded-full shadow-lg hover:shadow-aco-orange/30 transition-all duration-300 hover:scale-105 border-2 border-white/20">
+            <Button
+             onClick={quizClick}
+             className="hidden md:flex group bg-gradient-to-r from-aco-orange to-orange-500 hover:from-orange-600 hover:to-aco-orange text-white font-semibold px-6 py-2.5 rounded-full shadow-lg hover:shadow-aco-orange/30 transition-all duration-300 hover:scale-105 border-2 border-white/20">
               <span className="group-hover:scale-105 transition-transform duration-300">Take Free Career Quiz</span>
             </Button>
 
@@ -252,7 +271,7 @@ export function Header() {
 
     {/* Enhanced Mobile Navigation Menu - Outside header container */}
     {isMenuOpen && (
-      <div className="fixed inset-0 bg-white/95 backdrop-blur-md z-[9999] overflow-hidden transition-all duration-500">
+      <div className="fixed inset-0 bg-white/95 backdrop-blur-md z-[9999] overflow-hidden w-full transition-all duration-500">
         <div className="w-full h-full flex flex-col px-4 pt-20">
           {/* Close button at the top */}
           <div className="flex justify-end mb-8">
@@ -300,7 +319,7 @@ export function Header() {
               style={{ animationDelay: `${navItems.length * 100}ms` }}
             >
               <Button
-                onClick={toggleMobileMenu}
+                onClick={quizClick}
                 className="w-full bg-gradient-to-r from-aco-orange to-orange-500 hover:from-orange-600 hover:to-aco-orange text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-aco-orange/30 transition-all duration-300 hover:scale-105"
               >
                 Take Free Career Quiz

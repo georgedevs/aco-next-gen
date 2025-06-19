@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Star } from "lucide-react"
 import { CheckBadgeIcon } from '@heroicons/react/24/solid'
+import Link from "next/link"
 
 export function HeroSection() {
   return (
@@ -68,13 +69,15 @@ export function HeroSection() {
             className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16 animate-fade-in-up"
             style={{ animationDelay: "600ms" }}
           >
-            <Button
-              size="lg"
-              className="group bg-gradient-to-r from-aco-orange to-orange-500 hover:from-orange-600 hover:to-aco-orange text-white text-lg px-10 py-5 rounded-full shadow-2xl hover:shadow-aco-orange/50 transition-all duration-300 hover:scale-105 border-2 border-white/20"
-            >
-              Take Your Free Career Quiz
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-            </Button>
+            <Link href="/quiz">
+              <Button
+                size="lg"
+                className="group bg-gradient-to-r from-aco-orange to-orange-500 hover:from-orange-600 hover:to-aco-orange text-white text-lg px-10 py-5 rounded-full shadow-2xl hover:shadow-aco-orange/50 transition-all duration-300 hover:scale-105 border-2 border-white/20"
+              >
+                Take Your Free Career Quiz
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+              </Button>
+            </Link>
             <div className="flex items-center space-x-4 text-white bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20">
               <div className="flex space-x-2">
                 <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>

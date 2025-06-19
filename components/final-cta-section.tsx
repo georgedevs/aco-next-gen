@@ -5,6 +5,7 @@ import {
   UserGroupIcon,
   ShieldCheckIcon 
 } from '@heroicons/react/24/outline'
+import Link from "next/link"
 
 export function FinalCtaSection() {
   return (
@@ -20,13 +21,15 @@ export function FinalCtaSection() {
           </p>
 
           <div className="mb-16">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-aco-orange to-orange-500 hover:from-orange-600 hover:to-aco-orange text-white font-semibold text-lg px-10 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-            >
-              Take Your Free Career Quiz Now
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
+            <Link href="/quiz">
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-aco-orange to-orange-500 hover:from-orange-600 hover:to-aco-orange text-white font-semibold text-lg px-10 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+              >
+                Take Your Free Career Quiz Now
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto mb-12">

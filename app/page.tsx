@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen overflow-x-hidden w-full">
       <Header />
       <HeroSection />
       <VideoSection />
