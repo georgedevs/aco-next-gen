@@ -124,7 +124,7 @@ const quizClick = () => {
       ></div>
       {/* Floating compact header - only shows when scrolled */}
       {isScrolled && (
-        <div className="w-full flex justify-center px-4 overflow-x-hidden">
+        <div className="w-full flex shadow-xl shadow-[#9c9c9c] justify-center px-4 overflow-x-hidden">
           <div
             className="w-full max-w-4xl bg-white/95 backdrop-blur-xl shadow-2xl border border-gray-200/50 rounded-full px-6 py-3 transform transition-all duration-500 animate-in slide-in-from-top-2"
             style={{

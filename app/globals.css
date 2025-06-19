@@ -146,3 +146,48 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(135deg, #064155, #029c9c);
 }
+
+/* Custom text selection highlighting with Aco colors */
+::selection {
+  background-color: #16D3C1; /* Aco cyan */
+  color: #064155; /* Aco navy for contrast */
+}
+
+::-moz-selection {
+  background-color: #16D3C1; /* Aco cyan */
+  color: #064155; /* Aco navy for contrast */
+}
+
+/* Alternative orange highlight option */
+.orange-selection ::selection {
+  background-color: #F47A45; /* Aco orange */
+  color: #ffffff; /* White text for good contrast */
+}
+
+.orange-selection ::-moz-selection {
+  background-color: #F47A45; /* Aco orange */
+  color: #ffffff; /* White text for good contrast */
+}
+
+
+.meet-image::before{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #F47A45;
+  border-radius: 50%;
+  transform: scale(1.2);
+  opacity: 15%;
+}
+
+.meet-image::after{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #F47A45;
+  border-radius: 50%;
+  opacity: 15%;
+  transform: scale(1.4);
+}

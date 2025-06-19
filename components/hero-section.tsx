@@ -6,6 +6,14 @@ import Link from "next/link"
 export function HeroSection() {
   return (
     <section className="relative mt-16 md:mt-0 pt-4 md:pt-0 pb-12 md:pb-0 bg-aco-navy min-h-[90vh] md:h-screen flex items-center overflow-hidden">
+      {/* Background Image */}
+      <div 
+        className="absolute bg-cyan-900 bg-blend-multiply inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: 'url("/new.jpeg")',
+        }}
+      ></div>
+
       {/* Background decorative elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-32 h-32 bg-aco-cyan rounded-full blur-3xl animate-pulse"></div>
@@ -13,8 +21,8 @@ export function HeroSection() {
         <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-aco-cyan rounded-full blur-2xl animate-pulse delay-500"></div>
       </div>
 
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-aco-navy via-aco-navy/95 to-aco-navy/90"></div>
+            {/* Gradient overlay */}
+      {/* <div className="absolute inset-0 bg-gradient-to-br from-aco-navy via-aco-navy/55 to-aco-navy/50"></div> */}
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-5xl mx-auto text-center">
@@ -38,7 +46,7 @@ export function HeroSection() {
           {/* Enhanced heading with better typography */}
           <h1
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight animate-fade-in-up font-heading"
-            style={{ lineHeight: "calc(1.15em + 4px)", animationDelay: "200ms" }}
+            style={{ lineHeight: "calc(1.15em + 4px)", animationDelay: "200ms", letterSpacing: -2 }}
           >
             Master Tech Skills That Open
             <span className="relative inline-block ml-3">
@@ -66,7 +74,7 @@ export function HeroSection() {
 
           {/* Enhanced CTA section */}
           <div
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16 animate-fade-in-up"
+            className="flex flex-col sm:flex-row flex-wrap gap-6 justify-center items-center mb-16 animate-fade-in-up"
             style={{ animationDelay: "600ms" }}
           >
             <Link href="/quiz">
@@ -79,7 +87,7 @@ export function HeroSection() {
               </Button>
             </Link>
             <div className="flex items-center space-x-4 text-white bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20">
-              <div className="flex space-x-2">
+              <div className="flex space-x-2 items-center">
                 <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
                 <span className="text-sm font-medium">✓ 100% Free</span>
               </div>
@@ -101,7 +109,7 @@ export function HeroSection() {
               { number: "26+", label: "States Covered", delay: "400ms" },
             ].map((stat, index) => (
               <div key={index} className="text-center group" style={{ animationDelay: stat.delay }}>
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                <div className=" bg-gradient-to-tr from-white/10 bg-white/5 to-transparent backdrop-blur-sm rounded-2xl p-6 border border-white/5 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-xl">
                   <div className="text-4xl md:text-5xl font-bold text-aco-cyan mb-2 group-hover:scale-110 transition-transform duration-300">
                     {stat.number}
                   </div>
