@@ -407,8 +407,8 @@ export default function QuizPage() {
           {/* Email Capture Screen */}
           {quizState.currentScreen === 'email-capture' && (
             <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 md:p-8 lg:p-12 shadow-2xl border border-white/20 w-full max-w-full overflow-hidden">
-              {/* Trust indicator */}
-              <div className="flex justify-center items-center space-x-1 mb-8">
+              {/* Trust indicator - Hidden on mobile */}
+              <div className="hidden sm:flex justify-center items-center space-x-1 mb-8">
                 <div className="flex items-center bg-aco-teal/10 backdrop-blur-sm rounded-full px-6 py-3 border border-aco-teal/20">
                   <div className="flex space-x-1 mr-3">
                     {[...Array(5)].map((_, i) => (

@@ -26,8 +26,8 @@ export function HeroSection() {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-5xl mx-auto text-center">
-          {/* Trust indicator with enhanced styling */}
-          <div className="flex justify-center items-center space-x-1 mb-8 animate-fade-in-up">
+          {/* Trust indicator with enhanced styling - Hidden on mobile */}
+          <div className="hidden sm:flex justify-center items-center space-x-1 mb-8 animate-fade-in-up">
             <div className="flex items-center bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20">
               <div className="flex space-x-1 mr-3">
                 {[...Array(5)].map((_, i) => (
