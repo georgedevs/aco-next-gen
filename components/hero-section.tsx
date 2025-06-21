@@ -10,7 +10,7 @@ export function HeroSection() {
       <div 
         className="absolute bg-cyan-900 bg-blend-multiply inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: 'url("/new.jpeg")',
+          backgroundImage: 'url("herobg.png")',
         }}
       ></div>
 
