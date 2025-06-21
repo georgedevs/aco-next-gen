@@ -35,14 +35,26 @@ export function ProcessSection() {
   ]
 
   return (
-    <section id="process" className="py-20 bg-gradient-to-br from-aco-navy to-aco-navy/95 relative overflow-hidden">
+    <section
+      id="process"
+      className="py-20 bg-gradient-to-br bg-blend-multiply from-aco-navy to-aco-navy/95 relative overflow-hidden"
+      style={{
+        backgroundImage: "url('/processbg.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      {/* Background overlay to maintain readability */}
+      {/* <div className="absolute inset-0 bg-gradient-to-br from-aco-navy/80 to-aco-navy/90 z-0"></div> */}
+
       {/* Background decorative elements */}
-      <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0 opacity-10 z-10">
         <div className="absolute top-20 left-10 w-40 h-40 bg-white rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 right-10 w-32 h-32 bg-aco-orange rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 animate-fade-in-up font-heading">
             How Aco NextGen Works

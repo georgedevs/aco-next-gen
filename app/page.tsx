@@ -36,7 +36,6 @@ export default function Home() {
       <TestimonialsSection />
       <FaqSection />
       <FinalCtaSection />
-      <Footer />
       <FloatingCta />
     </main>
   )
