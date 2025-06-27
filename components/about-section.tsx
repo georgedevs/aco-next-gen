@@ -8,8 +8,8 @@ export function AboutSection() {
 
   const paragraphs = [
     "The Aco NextGen Scholarship represents a revolutionary approach to tech education, designed specifically for ambitious individuals ready to thrive in the fourth industrial revolution. This comprehensive program bridges the gap between traditional education and the rapidly evolving demands of the global tech industry, providing participants with cutting-edge skills that employers actively seek.",
-    "Our curriculum covers essential areas including software development, data science, artificial intelligence, cybersecurity, and digital marketing. What sets us apart is our focus on practical, hands-on learning combined with real-world project experience. Students don't just learn theory – they build portfolios that demonstrate their capabilities to potential employers worldwide.",
-    "Since our launch, we've successfully placed over 8,500 graduates in tech roles across 50+ countries, with many securing positions at leading companies like Google, Microsoft, Amazon, and innovative startups. Our commitment extends beyond training – we provide ongoing career support, mentorship, and access to our global network of tech professionals and hiring partners."
+    "Our curriculum covers essential areas including software development, cybersecurity, UI/UX design, product management, digital marketing, graphic design, video editing and tech support. What sets us apart is our focus on practical, hands-on learning combined with real-world project experience. Students don't just learn theory – they build portfolios that demonstrate their capabilities to potential employers worldwide.",
+    "Since our launch, we've successfully placed over 600 graduates in tech roles, with many securing positions at leading organizations like MTN and other reputable companies and startups. Our commitment extends beyond training – we provide ongoing career support, mentorship, and access to our global network of tech professionals and hiring partners."
   ]
 
   useEffect(() => {

@@ -18,7 +18,7 @@ export function BenefitsSection() {
     {
       icon: GlobeAltIcon,
       title: "Global Job Opportunities",
-      description: "Access exclusive job openings from our network of 500+ partner companies worldwide.",
+      description: "Access exclusive job openings from our extensive network of partner companies worldwide.",
     },
     {
       icon: UsersIcon,
@@ -28,7 +28,7 @@ export function BenefitsSection() {
     {
       icon: CheckBadgeIcon,
       title: "Industry Certifications",
-      description: "Earn recognized certifications that validate your skills to employers globally.",
+      description: "Earn recognized certifications that validate your skills to employers.",
     },
     {
       icon: BriefcaseIcon,

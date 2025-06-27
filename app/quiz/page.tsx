@@ -60,7 +60,6 @@ const courses = {
 
 const sections = [
   { title: "Core Interests", subtitle: "What drives your passion in technology?" },
-  { title: "Technical Skills", subtitle: "Your current technical abilities and experience" },
   { title: "Creative Preferences", subtitle: "How do you prefer to express creativity?" },
   { title: "Problem-Solving Style", subtitle: "Your approach to tackling challenges" },
   { title: "Data & Analysis", subtitle: "Your relationship with data and insights" },
@@ -107,43 +106,7 @@ const questions = [
       ]
     }
   ],
-  // Section 2: Technical Skills
-  [
-    {
-      type: "single",
-      question: "What's your current level of technical experience?",
-      options: [
-        { text: "Complete beginner - ready to start from scratch", scores: { 'Office Suite': 2, 'Web Design (WordPress)': 2, 'Digital Marketing': 1 } },
-        { text: "Some basic knowledge - familiar with fundamentals", scores: { 'Front-end Web Development': 1, 'SEO Training': 2, 'Graphic Design': 1 } },
-        { text: "Intermediate - can work on projects independently", scores: { 'Full Stack Programming': 2, 'Product Design Mastery': 1, 'Data Analysis': 1 } },
-        { text: "Advanced - looking to specialize or expand skills", scores: { 'Dev Ops': 2, 'Cyber Security': 2, 'Cloud Computing': 2 } }
-      ]
-    },
-    {
-      type: "multi",
-      question: "Which tools or technologies have you worked with?",
-      options: [
-        { text: "Design software (Photoshop, Figma, Sketch)", scores: { 'Graphic Design': 2, 'Product Design Mastery': 2, 'Web Design (WordPress)': 1 } },
-        { text: "Programming languages (JavaScript, Python, etc.)", scores: { 'Front-end Web Development': 2, 'Backend Web Development': 2, 'Full Stack Programming': 3 } },
-        { text: "Content management systems (WordPress, etc.)", scores: { 'Web Design (WordPress)': 3, 'Digital Marketing': 1, 'SEO Training': 1 } },
-        { text: "Data analysis tools (Excel, SQL, Python)", scores: { 'Data Analysis': 3, 'Office Suite': 1, 'Digital Marketing': 1 } },
-        { text: "Marketing platforms (Google Ads, social media)", scores: { 'Digital Marketing': 3, 'SEO Training': 2, 'Business Model Mastery': 1 } },
-        { text: "Cloud services (AWS, Azure, Google Cloud)", scores: { 'Cloud Computing': 3, 'Dev Ops': 2, 'Backend Web Development': 1 } },
-        { text: "None of the above", scores: {} }
-      ]
-    },
-    {
-      type: "single",
-      question: "How do you prefer to learn new technical skills?",
-      options: [
-        { text: "Hands-on projects and building real applications", scores: { 'Front-end Web Development': 2, 'Full Stack Programming': 2, 'Product Design Mastery': 1 } },
-        { text: "Structured courses with clear learning paths", scores: { 'Office Suite': 2, 'Digital Marketing': 2, 'SEO Training': 2 } },
-        { text: "Experimentation and trial-and-error approach", scores: { 'Graphic Design': 2, 'Web Design (WordPress)': 1, 'Data Analysis': 1 } },
-        { text: "Deep theoretical understanding before application", scores: { 'Cyber Security': 2, 'Backend Web Development': 2, 'Cloud Computing': 1 } }
-      ]
-    }
-  ],
-  // Section 3: Creative Preferences
+  // Section 2: Creative Preferences
   [
     {
       type: "single",
@@ -166,21 +129,9 @@ const questions = [
         { text: "Marketing campaigns and growth strategies", scores: { 'Digital Marketing': 3, 'SEO Training': 2, 'Business Model Mastery': 1 } },
         { text: "Security solutions and system protection", scores: { 'Cyber Security': 3, 'Dev Ops': 1 } }
       ]
-    },
-    {
-      type: "multi",
-      question: "Which creative tools do you enjoy working with?",
-      options: [
-        { text: "Design software (Adobe Creative Suite, Figma, Sketch)", scores: { 'Graphic Design': 2, 'Product Design Mastery': 2, 'Web Design (WordPress)': 1 } },
-        { text: "Code editors and development environments", scores: { 'Front-end Web Development': 2, 'Backend Web Development': 2, 'Full Stack Programming': 2 } },
-        { text: "Data visualization tools (Tableau, Power BI, D3.js)", scores: { 'Data Analysis': 3, 'Digital Marketing': 1 } },
-        { text: "Content management and marketing platforms", scores: { 'Digital Marketing': 2, 'SEO Training': 2, 'Web Design (WordPress)': 1 } },
-        { text: "Infrastructure and automation tools", scores: { 'Dev Ops': 2, 'Cloud Computing': 2, 'Cyber Security': 1 } },
-        { text: "I prefer to work without specialized tools", scores: { 'Office Suite': 2, 'Business Model Mastery': 1 } }
-      ]
     }
   ],
-  // Section 4: Problem-Solving Style
+  // Section 3: Problem-Solving Style
   [
     {
       type: "single",
@@ -217,7 +168,7 @@ const questions = [
       ]
     }
   ],
-  // Section 5: Data & Analysis
+  // Section 4: Data & Analysis
   [
     {
       type: "single",
@@ -254,7 +205,7 @@ const questions = [
       ]
     }
   ],
-  // Section 6: Communication & Business
+  // Section 5: Communication & Business
   [
     {
       type: "single",
@@ -291,7 +242,7 @@ const questions = [
       ]
     }
   ],
-  // Section 7: Work Environment
+  // Section 6: Work Environment
   [
     {
       type: "single",
@@ -328,7 +279,7 @@ const questions = [
       ]
     }
   ],
-  // Section 8: Career Goals
+  // Section 7: Career Goals
   [
     {
       type: "single",
@@ -638,7 +589,7 @@ export default function QuizPage() {
     setEmailSending(true)
     
     try {
-      // Simulate email sending - replace with actual API call
+      // Simulate email sending 
       const emailData = {
         to: quizState.userEmail,
         subject: 'Your Perfect Tech Career Match - Aco NextGen Scholarship',
@@ -727,7 +678,7 @@ export default function QuizPage() {
         <div className="absolute bottom-1/3 left-1/3 w-20 h-20 bg-aco-orange rounded-full blur-xl animate-pulse delay-300"></div>
       </div>
 
-      {/* Gradient overlay with more visual interest */}
+      {/* Gradient overlay  */}
       <div className="absolute inset-0 bg-gradient-to-br from-aco-navy via-aco-navy/95 to-aco-navy/90"></div>
       
       {/* Additional pattern overlay */}
@@ -862,7 +813,7 @@ export default function QuizPage() {
                       />
                     ))}
                   </div>
-                  <span className="text-aco-navy font-comfortaa font-medium">Trusted by 5,000+ students</span>
+                  <span className="text-aco-navy font-comfortaa font-medium">Trusted by 600+ students</span>
                   <CheckBadgeIcon className="w-5 h-5 text-aco-cyan ml-2" />
                 </div>
               </div>
@@ -968,7 +919,7 @@ export default function QuizPage() {
                 <div className="flex items-center justify-center space-x-4 text-sm text-gray-500 pt-4">
                   <span className="flex items-center">
                     <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
-                    100% Free
+                    80% Free
                   </span>
                   <span className="w-px h-4 bg-gray-300"></span>
                   <span>No Hidden Costs</span>
@@ -979,7 +930,7 @@ export default function QuizPage() {
             </div>
           )}
 
-          {/* New Comprehensive Quiz */}
+          {/* Comprehensive Quiz */}
           {quizState.currentScreen === 'quiz-question' && (
             <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-2xl border border-white/20">
               <div className="flex justify-between items-center mb-6">

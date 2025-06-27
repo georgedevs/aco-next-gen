@@ -38,7 +38,7 @@ export function HeroSection() {
                   />
                 ))}
               </div>
-              <span className="text-white font-medium">Trusted by 5,000+ students nationwide</span>
+              <span className="text-white font-medium">Trusted by 600+ students nationwide</span>
               <CheckBadgeIcon className="w-5 h-5 text-aco-cyan ml-2" />
             </div>
           </div>
@@ -89,7 +89,7 @@ export function HeroSection() {
             <div className="flex items-center space-x-4 text-white bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20">
               <div className="flex space-x-2 items-center">
                 <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                <span className="text-sm font-medium">✓ 100% Free</span>
+                <span className="text-sm font-medium">✓ 80% Free</span>
               </div>
               <div className="w-px h-4 bg-white/30"></div>
               <span className="text-sm font-medium">✓ No Hidden Costs</span>
@@ -104,9 +104,9 @@ export function HeroSection() {
             style={{ animationDelay: "800ms" }}
           >
             {[
-              { number: "5,000+", label: "Students Trained", delay: "0ms" },
+              { number: "600+", label: "Students Trained", delay: "0ms" },
               { number: "85%", label: "Job Placement Rate", delay: "200ms" },
-              { number: "26+", label: "States Covered", delay: "400ms" },
+              { number: "21+", label: "States Covered", delay: "400ms" },
             ].map((stat, index) => (
               <div key={index} className="text-center group" style={{ animationDelay: stat.delay }}>
                 <div className=" bg-gradient-to-tr from-white/10 bg-white/5 to-transparent backdrop-blur-sm rounded-2xl p-6 border border-white/5 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-xl">
