@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo, useCallback } from "react"
 import Image from "next/image"
 import { 
   ArrowLeft, 
@@ -35,7 +35,10 @@ import {
   Sparkles,
   Disc2,
   Circle,
-  CheckCircle2
+  CheckCircle2,
+  MessageCircle,
+  Users,
+  ExternalLink
 } from "lucide-react"
 import { CheckBadgeIcon } from "@heroicons/react/24/solid"
 
@@ -333,6 +336,8 @@ interface QuizState {
   currentSection: number
   currentQuestion: number
   answers: Record<string, number | number[]>
+  skippedSections: number[]
+  adaptiveEnabled: boolean
 }
 
 export default function QuizPage() {
@@ -349,7 +354,9 @@ export default function QuizPage() {
     screenHistory: [],
     currentSection: 0,
     currentQuestion: 0,
-    answers: {}
+    answers: {},
+    skippedSections: [],
+    adaptiveEnabled: true
   })
 
   const [loading, setLoading] = useState(false)
@@ -381,8 +388,22 @@ export default function QuizPage() {
         currentSection: progress.currentSection || 0,
         currentQuestion: progress.currentQuestion || 0,
         answers: progress.answers || {},
-        currentScreen: progress.currentScreen || 'email-capture'
+        currentScreen: progress.currentScreen || 'email-capture',
+        skippedSections: progress.skippedSections || [],
+        adaptiveEnabled: progress.adaptiveEnabled !== undefined ? progress.adaptiveEnabled : true
       }))
+    }
+
+    // Load saved quiz results if available
+    const savedQuizResults = localStorage.getItem('acoQuizResults')
+    if (savedQuizResults) {
+      const results = JSON.parse(savedQuizResults)
+      setQuizState(prev => ({
+        ...prev,
+        finalRecommendation: results.finalRecommendation || '',
+        currentScreen: results.finalRecommendation ? 'recommendation' : prev.currentScreen
+      }))
+      setEmailSent(results.emailSent || false)
     }
   }, [])
 
@@ -393,7 +414,9 @@ export default function QuizPage() {
         currentSection: quizState.currentSection,
         currentQuestion: quizState.currentQuestion,
         answers: quizState.answers,
-        currentScreen: quizState.currentScreen
+        currentScreen: quizState.currentScreen,
+        skippedSections: quizState.skippedSections,
+        adaptiveEnabled: quizState.adaptiveEnabled
       }
       localStorage.setItem('acoQuizProgress', JSON.stringify(progressData))
     }
@@ -402,6 +425,88 @@ export default function QuizPage() {
   const updateQuizState = (updates: Partial<QuizState>) => {
     setQuizState(prev => ({ ...prev, ...updates }))
   }
+
+  // Optimized scoring algorithm with memoization
+  const calculateScores = useMemo(() => {
+    const scores: Record<string, number> = {}
+    Object.keys(courses).forEach(course => { scores[course] = 0 })
+
+    Object.entries(quizState.answers).forEach(([questionId, answer]) => {
+      const [sectionIdx, questionIdx] = questionId.split('-').map(Number)
+      const question = questions[sectionIdx]?.[questionIdx]
+
+      if (!question) return
+
+      if (question.type === 'single' && typeof answer === 'number') {
+        const selectedOption = question.options[answer]
+        if (selectedOption?.scores) {
+          Object.entries(selectedOption.scores).forEach(([course, points]) => {
+            scores[course] += points
+          })
+        }
+      } else if (question.type === 'multi' && Array.isArray(answer)) {
+        answer.forEach(optionIdx => {
+          const selectedOption = question.options[optionIdx]
+          if (selectedOption?.scores) {
+            Object.entries(selectedOption.scores).forEach(([course, points]) => {
+              scores[course] += points
+            })
+          }
+        })
+      }
+    })
+
+    return scores
+  }, [quizState.answers])
+
+  // Constants for skip patterns (moved outside function for efficiency)
+  const SKIP_PATTERNS: Record<string, number[]> = {
+    'Graphic Design': [3], // Skip Data & Analysis section
+    'Data Analysis': [1], // Skip Creative Preferences section
+    'Cyber Security': [1, 4], // Skip Creative and Communication sections
+    'Digital Marketing': [], // Don't skip any - marketing needs broad knowledge
+    'Product Management': [], // Don't skip any - PM needs broad knowledge
+    'Backend Web Development': [1], // Skip Creative Preferences
+    'Dev Ops': [1, 4], // Skip Creative and Communication sections
+  }
+
+  // Optimized skip logic with memoization
+  const shouldSkipSection = useCallback((sectionIndex: number) => {
+    if (!quizState.adaptiveEnabled || quizState.currentSection < 2) {
+      return false // Don't skip until we have enough data (after 2 sections)
+    }
+
+    const sortedScores = Object.entries(calculateScores)
+      .sort(([, a], [, b]) => b - a)
+      .filter(([, score]) => score > 0)
+
+    if (sortedScores.length < 2) return false
+
+    const [topCourse, topScore] = sortedScores[0]
+    const [, secondScore] = sortedScores[1]
+
+    // Only skip if there's a dominant leader (3x more points and at least 8 points)
+    const isDominant = topScore >= secondScore * 3 && topScore >= 8
+
+    if (!isDominant) return false
+
+    const sectionsToSkip = SKIP_PATTERNS[topCourse] || []
+    return sectionsToSkip.includes(sectionIndex)
+  }, [calculateScores, quizState.adaptiveEnabled, quizState.currentSection])
+
+  // Memoized progress calculation (moved outside JSX)
+  const progressPercentage = useMemo(() => {
+    // Calculate progress considering skipped sections
+    const totalQuestions = questions.reduce((sum, section) => sum + section.length, 0)
+    const skippedQuestions = quizState.skippedSections.reduce((sum, sectionIdx) => 
+      sum + (questions[sectionIdx]?.length || 0), 0)
+    const effectiveTotalQuestions = totalQuestions - skippedQuestions
+    
+    const completedSectionQuestions = questions.slice(0, quizState.currentSection).reduce((sum, section) => sum + section.length, 0)
+    const currentProgress = completedSectionQuestions + quizState.currentQuestion + 1
+    
+    return effectiveTotalQuestions > 0 ? (currentProgress / effectiveTotalQuestions) * 100 : 0
+  }, [quizState.currentSection, quizState.currentQuestion, quizState.skippedSections])
 
   const goBack = () => {
     if (quizState.screenHistory.length > 0) {
@@ -470,6 +575,12 @@ export default function QuizPage() {
     
     if (currentQuestionData.type === 'single') {
       newAnswers[questionId] = optionIndex
+      updateQuizState({ answers: newAnswers })
+      
+      // Auto-advance to next question after a short delay for single choice questions
+      setTimeout(() => {
+        nextQuestion()
+      }, 800)
     } else if (currentQuestionData.type === 'multi') {
       const currentSelection = newAnswers[questionId] as number[] || []
       if (currentSelection.includes(optionIndex)) {
@@ -477,9 +588,8 @@ export default function QuizPage() {
       } else {
         newAnswers[questionId] = [...currentSelection, optionIndex]
       }
+      updateQuizState({ answers: newAnswers })
     }
-    
-    updateQuizState({ answers: newAnswers })
   }
 
   const nextQuestion = () => {
@@ -489,11 +599,29 @@ export default function QuizPage() {
       // Move to next question in current section
       updateQuizState({ currentQuestion: quizState.currentQuestion + 1 })
     } else if (quizState.currentSection < questions.length - 1) {
-      // Move to first question of next section
-      updateQuizState({ 
-        currentSection: quizState.currentSection + 1,
-        currentQuestion: 0
-      })
+      // Moving to next section - check if we should skip any sections
+      let nextSection = quizState.currentSection + 1
+      const skippedSections = [...quizState.skippedSections]
+      
+      // Check if we should skip the next section(s)
+      while (nextSection < questions.length && shouldSkipSection(nextSection)) {
+        console.log(`🎯 Adaptive Quiz: Skipping section ${nextSection} (${sections[nextSection]?.title})`)
+        skippedSections.push(nextSection)
+        nextSection++
+      }
+      
+      if (nextSection < questions.length) {
+        // Move to first question of next non-skipped section
+        updateQuizState({ 
+          currentSection: nextSection,
+          currentQuestion: 0,
+          skippedSections: skippedSections
+        })
+      } else {
+        // All remaining sections were skipped - complete quiz
+        updateQuizState({ skippedSections: skippedSections })
+        calculateResults()
+      }
     } else {
       // Quiz complete - calculate results
       calculateResults()
@@ -517,36 +645,9 @@ export default function QuizPage() {
     }
   }
 
-  const calculateResults = () => {
-    const scores: Record<string, number> = {}
-    Object.keys(courses).forEach(course => { scores[course] = 0 })
-
-    Object.entries(quizState.answers).forEach(([questionId, answer]) => {
-      const [sectionIdx, questionIdx] = questionId.split('-').map(Number)
-      const question = questions[sectionIdx]?.[questionIdx]
-
-      if (!question) return
-
-      if (question.type === 'single' && typeof answer === 'number') {
-        const selectedOption = question.options[answer]
-        if (selectedOption?.scores) {
-          Object.entries(selectedOption.scores).forEach(([course, points]) => {
-            scores[course] += points
-          })
-        }
-      } else if (question.type === 'multi' && Array.isArray(answer)) {
-        answer.forEach(optionIdx => {
-          const selectedOption = question.options[optionIdx]
-          if (selectedOption?.scores) {
-            Object.entries(selectedOption.scores).forEach(([course, points]) => {
-              scores[course] += points
-            })
-          }
-        })
-      }
-    })
-
-    const sortedResults = Object.entries(scores)
+  const calculateResults = async () => {
+    // Use the already calculated and memoized scores
+    const sortedResults = Object.entries(calculateScores)
       .sort(([, a], [, b]) => b - a)
       .slice(0, 3)
 
@@ -556,6 +657,60 @@ export default function QuizPage() {
       finalRecommendation: topRecommendation,
       currentScreen: 'recommendation' 
     })
+
+    // Save final recommendation to localStorage
+    const quizResults = {
+      finalRecommendation: topRecommendation,
+      completedAt: new Date().toISOString(),
+      emailSent: false
+    }
+    localStorage.setItem('acoQuizResults', JSON.stringify(quizResults))
+
+    // Automatically send email results
+    try {
+      const emailData = {
+        to: quizState.userEmail,
+        subject: 'Your Perfect Tech Career Match - Aco NextGen Scholarship',
+        firstName: quizState.userFirstName,
+        lastName: quizState.userLastName,
+        recommendation: topRecommendation,
+        rationale: generateRationale(topRecommendation)
+      }
+      
+      console.log('Sending email with data:', emailData)
+      
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(emailData)
+      })
+      
+      console.log(' Email API response status:', response.status)
+      console.log('Email API response ok:', response.ok)
+      
+      if (response.ok) {
+        const responseData = await response.json()
+        console.log(' Email sent successfully:', responseData)
+        setEmailSent(true)
+        setToastMessage(`Results sent to ${quizState.userEmail} automatically!`)
+        setShowToast(true)
+        
+        // Update localStorage to mark email as sent
+        const savedResults = localStorage.getItem('acoQuizResults')
+        if (savedResults) {
+          const results = JSON.parse(savedResults)
+          results.emailSent = true
+          localStorage.setItem('acoQuizResults', JSON.stringify(results))
+        }
+      } else {
+        const errorData = await response.text()
+        console.error(' Email API error response:', errorData)
+        console.error(' Email sending failed with status:', response.status)
+      }
+    } catch (error) {
+      console.error(' Error sending email automatically:', error)
+      console.error(' Full error details:', error.message)
+    }
   }
 
   const isCurrentQuestionAnswered = () => {
@@ -624,9 +779,10 @@ export default function QuizPage() {
   }
 
   const restartQuiz = () => {
-    // Clear localStorage when restarting
+    // Clear all localStorage when restarting
     localStorage.removeItem('acoQuizUserDetails')
     localStorage.removeItem('acoQuizProgress')
+    localStorage.removeItem('acoQuizResults')
     
     setQuizState({
       userEmail: '',
@@ -641,8 +797,12 @@ export default function QuizPage() {
       screenHistory: [],
       currentSection: 0,
       currentQuestion: 0,
-      answers: {}
+      answers: {},
+      skippedSections: [],
+      adaptiveEnabled: true
     })
+    
+    setEmailSent(false)
   }
 
   const generateRationale = (recommendation: string) => {
@@ -696,8 +856,7 @@ export default function QuizPage() {
             {/* Logo */}
             <div className="flex justify-start items-center pt-8 pb-12">
               <a 
-                href="https://acomultimedia.com/" 
-                target="_blank" 
+                href="/" 
                 rel="noopener noreferrer"
                 className="transition-transform duration-300 hover:scale-105"
               >
@@ -950,11 +1109,7 @@ export default function QuizPage() {
                 <div 
                   className="bg-gradient-to-r from-aco-teal to-aco-cyan h-2 rounded-full transition-all duration-500" 
                   style={{ 
-                    width: `${(() => {
-                      const totalQuestions = questions.reduce((sum, section) => sum + section.length, 0)
-                      const currentProgress = questions.slice(0, quizState.currentSection).reduce((sum, section) => sum + section.length, 0) + quizState.currentQuestion + 1
-                      return (currentProgress / totalQuestions) * 100
-                    })()}%` 
+                    width: `${progressPercentage}%` 
                   }}
                 ></div>
               </div>
@@ -1022,21 +1177,23 @@ export default function QuizPage() {
                 })}
               </div>
 
-              {/* Navigation */}
-              <div className="flex justify-center">
-                <button
-                  onClick={nextQuestion}
-                  disabled={!isCurrentQuestionAnswered()}
-                  className="flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-aco-orange to-orange-500 text-white font-bold rounded-xl hover:from-orange-600 hover:to-aco-orange transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl font-heading disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                >
-                  {(() => {
-                    const isLastSection = quizState.currentSection === questions.length - 1
-                    const isLastQuestion = quizState.currentQuestion === (questions[quizState.currentSection]?.length || 0) - 1
-                    return isLastSection && isLastQuestion ? 'Complete Quiz' : 'Next Question'
-                  })()}
-                  <ArrowRight className="w-5 h-5" />
-                </button>
-              </div>
+              {/* Navigation - Only show for multi-select questions */}
+              {questions[quizState.currentSection]?.[quizState.currentQuestion]?.type === 'multi' && (
+                <div className="flex justify-center">
+                  <button
+                    onClick={nextQuestion}
+                    disabled={!isCurrentQuestionAnswered()}
+                    className="flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-aco-orange to-orange-500 text-white font-bold rounded-xl hover:from-orange-600 hover:to-aco-orange transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl font-heading disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  >
+                    {(() => {
+                      const isLastSection = quizState.currentSection === questions.length - 1
+                      const isLastQuestion = quizState.currentQuestion === (questions[quizState.currentSection]?.length || 0) - 1
+                      return isLastSection && isLastQuestion ? 'Complete Quiz' : 'Next Question'
+                    })()}
+                    <ArrowRight className="w-5 h-5" />
+                  </button>
+                </div>
+              )}
             </div>
           )}
 
@@ -1070,39 +1227,49 @@ export default function QuizPage() {
                 <p className="text-gray-600 font-comfortaa">
                   We'll send this personalized recommendation to <strong>{quizState.userEmail}</strong> shortly.
                 </p>
+                {quizState.skippedSections.length > 0 && (
+                  <div className="mt-3 p-3 bg-green-50 rounded-lg border border-green-200">
+                    <p className="text-sm text-green-700 font-medium">
+                      🎯 Smart Quiz: We optimized your experience by focusing on relevant questions 
+                      ({quizState.skippedSections.length} section{quizState.skippedSections.length > 1 ? 's' : ''} skipped for precision)
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* Telegram Group Invitation */}
+              <div className="bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-xl p-6 mb-8 border border-blue-500/20">
+                <div className="flex items-center justify-center mb-4">
+            
+                  <div className="text-center">
+                    <h3 className="text-xl font-bold text-aco-navy font-heading">Join Our Community!</h3>
+                    <p className="text-sm text-gray-600 font-comfortaa">Connect with fellow learners and get exclusive updates</p>
+                  </div>
+                </div>
+                
+                <div className="text-center">
+                  <a
+                    href="https://t.me/+RhDh1qlwurNmODlk"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold rounded-xl hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl font-heading"
+                  >
+                    <Users className="w-5 h-5" />
+                    Join Telegram Group
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                
+                </div>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              {/* Optional restart button */}
+              <div className="text-center">
                 <button
                   onClick={restartQuiz}
-                  className="flex items-center justify-center gap-2 px-6 py-3 bg-transparent border-2 border-aco-teal text-aco-teal rounded-xl hover:bg-aco-teal hover:text-white transition-colors font-sans font-semibold"
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-transparent border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors font-sans"
                 >
-                  <RefreshCw className="w-5 h-5" /> Take Quiz Again
-                </button>
-                <button
-                  onClick={sendEmailResults}
-                  disabled={emailSending || emailSent}
-                  className={`flex items-center justify-center gap-2 px-6 py-3 rounded-xl transition-colors font-heading font-bold ${
-                    emailSent
-                      ? 'bg-green-500 text-white cursor-default'
-                      : emailSending
-                      ? 'bg-gray-400 text-white cursor-not-allowed'
-                      : 'bg-gradient-to-r from-aco-orange to-orange-500 text-white hover:from-orange-600 hover:to-aco-orange'
-                  }`}
-                >
-                  {emailSending ? (
-                    <>
-                      <Loader2 className="w-5 h-5 animate-spin" /> Sending...
-                    </>
-                  ) : emailSent ? (
-                    <>
-                      <CheckBadgeIcon className="w-5 h-5" /> Email Sent!
-                    </>
-                  ) : (
-                    <>
-                      <Mail className="w-5 h-5" /> Email My Results
-                    </>
-                  )}
+                  <RefreshCw className="w-4 h-4" />
+                  Take New Quiz
                 </button>
               </div>
             </div>
