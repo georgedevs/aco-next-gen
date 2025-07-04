@@ -30,12 +30,13 @@ export function FaqSection() {
     {
       question: "Why Exam fee?",
       answer:
-        "The Exam fee of ₦10,000 is a written assessment to be sure if you qualify to go to the Next level. No matter how small the fee is, if you pay for something, you will take it more seriously.",
+        "The Exam is a written assessment to be sure if you qualify to go to the Next level. No matter how small the fee is, if you pay for something, you will take it more seriously.",
     },
     {
       question: "How many Levels are there in each course?",
       answer:
-        "There are 3 levels (Beginners, Intermediate, and Advanced Level)",
+        "We now with a module-based scheme that offers more flexibility and targeted learning experiences for our courses.",
+        
     },
     {
       question: "What courses or skills will I learn?",
