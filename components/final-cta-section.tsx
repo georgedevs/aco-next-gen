@@ -53,9 +53,10 @@ export function FinalCtaSection() {
             <Link href="/quiz">
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-aco-orange to-orange-500 hover:from-orange-600 hover:to-aco-orange text-white font-semibold text-lg px-10 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                className="bg-gradient-to-r from-aco-orange to-orange-500 hover:from-orange-600 hover:to-aco-orange text-white font-semibold text-lg px-6 sm:px-10 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
               >
-                Take Your Free Career Quiz Now
+                <span className="sm:hidden">Take Free Quiz</span>
+                <span className="hidden sm:inline">Take Your Free Career Quiz Now</span>
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </Link>

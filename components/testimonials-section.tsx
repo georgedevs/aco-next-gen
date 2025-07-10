@@ -11,48 +11,39 @@ export function TestimonialsSection() {
 
   const testimonials = [
     {
-      name: "Sarah Johnson",
-      role: "Software Developer at Microsoft",
-      location: "Seattle, USA",
-      image: "/student1.jpeg",
+      name: "Muyiwa",
+      role: "Product Designer",
+      location: "Lagos, NG",
+      image: "/Muyiwa.jpg",
       content:
-        "Aco NextGen completely transformed my career. I went from having zero coding experience to landing a role at Microsoft within 8 months. The mentorship and practical projects were invaluable.",
+        "Getting accepted into the Aco NextGen Tech Scholarship was the turning point I needed. Through comprehensive hands-on training, dedicated mentorship, and challenging real-world design projects, I gained the skills and confidence to transition into tech as a Product Designer.",
       rating: 5,
     },
     {
-      name: "David Chen",
-      role: "Data Scientist at Google",
+      name: "Toke",
+      role: "Product Designer",
       location: "London, UK",
-      image: "/student2.jpeg",
+      image: "/Toke.jpg",
       content:
-        "The scholarship program exceeded my expectations. The curriculum was comprehensive, and the career support helped me navigate the job market successfully. Now I'm living my dream at Google.",
+        "The Aco NextGen Tech Scholarship completely changed the trajectory of my life. Through the scholarship, I gained access to professional-grade training, experienced mentorship, and real industry projects that helped me develop into a confident, skilled Product Designer.",
       rating: 5,
     },
     {
-      name: "Maria Rodriguez",
-      role: "Cybersecurity Analyst at IBM",
+      name: "Samuel",
+      role: "Graphic Designer",
       location: "Madrid, Spain",
-      image: "/student3.jpeg",
+      image: "/Samuel.png",
       content:
-        "What impressed me most was the global perspective and real-world applications. The skills I learned directly translated to my current role. The community support continues even after graduation.",
+        "Everything changed when I received the Aco NextGen Tech Scholarship. That opportunity opened a completely new world for me. Today, I'm a working Graphic Designer, creating powerful visual content for brands and telling stories through design.",
       rating: 5,
     },
     {
-      name: "James Wilson",
-      role: "Full Stack Developer at Startup",
+      name: "Princess ",
+      role: "Product Designer",
       location: "Toronto, Canada",
-      image: "/student4.jpeg",
+      image: "/Princess.jpg",
       content:
-        "From unemployed to employed in tech within 6 months. The hands-on projects and portfolio development were crucial in landing interviews. The program truly delivers on its promises.",
-      rating: 5,
-    },
-    {
-      name: "Priya Patel",
-      role: "AI Engineer at Amazon",
-      location: "Mumbai, India",
-      image: "/student5.jpeg",
-      content:
-        "The quality of education rivals top universities, but it's completely free and focused on industry needs. The global job network opened doors I never thought possible.",
+        "The program gave me more than just access to learning. It gave me clear direction, experienced mentorship, and a supportive community that believed in my potential. Today, while still in school, I work remotely as a paid Product Designer, doing the work I love and growing every day in a field I never imagined I could be part of so soon.",
       rating: 5,
     },
   ]
@@ -66,7 +57,7 @@ export function TestimonialsSection() {
   }
 
   useEffect(() => {
-    const interval = setInterval(nextTestimonial, 5000)
+    const interval = setInterval(nextTestimonial, 8000)
     return () => clearInterval(interval)
   }, [])
 
