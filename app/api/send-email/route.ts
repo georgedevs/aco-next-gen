@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
               </ul>
               
               <div style="text-align: center;">
-                <a href="https://aconextgen.com" class="button">Apply for Scholarship</a>
+                <a href="https://aconextgenscholarship.com" class="button">Apply for Scholarship</a>
               </div>
               
               <p><strong>Ready to transform your career?</strong> The 4th industrial revolution is here, and we're here to help you thrive in it.</p>

@@ -47,11 +47,14 @@ export const metadata: Metadata = {
   description:
     "Join the Aco NextGen Scholarship program and gain the tech skills needed for the 4th industrial revolution. Free training, global job opportunities, and career transformation await.",
   keywords:
-    "tech scholarship, free tech training, 4th industrial revolution, tech skills, global job opportunities, career development",
+    "tech scholarship, free tech training, 4th industrial revolution, tech skills, global job opportunities, career development, programming bootcamp, software engineering, web development, data science, artificial intelligence, machine learning, cybersecurity, cloud computing, Nigeria tech, Africa tech education",
   authors: [{ name: "Aco NextGen" }],
   creator: "Aco NextGen",
   publisher: "Aco NextGen",
   robots: "index, follow",
+  alternates: {
+    canonical: "https://www.aconextgenscholarship.com",
+  },
   icons: {
     icon: [
       { url: "/favicon.png", sizes: "32x32", type: "image/png" },
@@ -65,17 +68,28 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://aconextgen.com",
+    url: "https://www.aconextgenscholarship.com",
     title: "Aco NextGen Scholarship - Free Tech Skills Training",
     description: "Transform your career with free tech skills training designed for global opportunities",
     siteName: "Aco NextGen Scholarship",
+    images: [
+      {
+        url: "https://www.aconextgenscholarship.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Aco NextGen Scholarship - Free Tech Training Program",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    site: "@aconextgen",
+    creator: "@aconextgen",
     title: "Aco NextGen Scholarship - Free Tech Skills Training",
     description: "Transform your career with free tech skills training designed for global opportunities",
+    images: ["https://www.aconextgenscholarship.com/og-image.png"],
   },
-    generator: 'v0.dev'
+  generator: 'Next.js',
 }
 
 export default function RootLayout({
@@ -85,6 +99,38 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "EducationalOrganization",
+              "name": "Aco NextGen Scholarship",
+              "url": "https://www.aconextgenscholarship.com",
+              "logo": "https://www.aconextgenscholarship.com/logo-dark.webp",
+              "description": "Free tech skills training program for global opportunities in the 4th industrial revolution",
+              "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "NG"
+              },
+              "offers": {
+                "@type": "Offer",
+                "category": "Education",
+                "price": "0",
+                "priceCurrency": "USD",
+                "availability": "https://schema.org/InStock"
+              },
+              "educationalCredentialAwarded": "Tech Skills Certificate",
+              "areaServed": "Worldwide",
+              "sameAs": [
+                "https://twitter.com/aconextgen",
+                "https://linkedin.com/company/aconextgen"
+              ]
+            })
+          }}
+        />
+      </head>
       <body className={`${plusJakartaSans.variable} ${spaceGrotesk.variable} ${satisfy.variable} ${kalam.variable} ${comfortaa.variable} font-sans`}>{children}</body>
     </html>
   )
