@@ -135,7 +135,7 @@ const quizClick = () => {
               {/* Compact Logo */}
               <Link href="/" className="flex items-center space-x-2 group">
                 <Image
-                  src="/logo-white.png"
+                  src="/Asset 2.png"
                   alt="Aco NextGen"
                   width={120}
                   height={32}
@@ -206,7 +206,7 @@ const quizClick = () => {
           <div className="flex-shrink-0 group">
             <Link href="/" className="flex items-center">
               <Image
-                src="/logo-white.png"
+                src="/Asset 2.png"
                 alt="Aco NextGen"
                 width={160}
                 height={40}
@@ -331,7 +331,7 @@ const quizClick = () => {
           <div className="py-6 text-center text-sm text-gray-500 border-t border-gray-200">
             <div className="flex justify-center items-center mb-2">
               <Image
-                src="/logo-white.png"
+                src="/Asset 2.png"
                 alt="Aco NextGen"
                 width={100}
                 height={28}

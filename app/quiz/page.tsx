@@ -861,11 +861,11 @@ export default function QuizPage() {
                 className="transition-transform duration-300 hover:scale-105"
               >
                 <Image
-                  src="/logo-dark.webp"
+                  src="/Asset 2 -dark.png"
                   alt="Aco NextGen"
                   width={180}
                   height={60}
-                  className="h-12 w-auto"
+                  className="h-40 w-auto"
                 />
               </a>
             </div>
@@ -909,6 +909,7 @@ export default function QuizPage() {
                     <CheckBadgeIcon className="w-4 h-4 text-aco-teal mt-0.5 mr-2 flex-shrink-0" />
                     Discover hidden talents
                   </li>
+
                   <li className="flex items-start">
                     <CheckBadgeIcon className="w-4 h-4 text-aco-teal mt-0.5 mr-2 flex-shrink-0" />
                     Match skills to opportunities

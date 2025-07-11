@@ -100,11 +100,11 @@ export function FinalCtaSection() {
             {/* Brand */}
             <Link href="/" className="flex items-center group">
               <Image
-                src="/logo-dark.webp"
+                src="/Asset 2 -dark.png"
                 alt="Aco NextGen"
                 width={140}
                 height={36}
-                className="h-9 w-auto transition-all duration-300 group-hover:scale-105"
+                className="transition-all duration-300 group-hover:scale-105"
               />
             </Link>
 
