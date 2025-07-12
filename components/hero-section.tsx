@@ -6,18 +6,19 @@ import Link from "next/link"
 export function HeroSection() {
   return (
     <section className="relative mt-16 md:mt-0 pt-4 md:pt-0 pb-12 md:pb-16 lg:pb-20 bg-aco-navy min-h-[90vh] md:min-h-screen flex items-center overflow-hidden">
+
       {/* Background Image */}
       <div 
         className="absolute bg-cyan-900 bg-blend-multiply inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: 'url("/herobg.png")',
+          backgroundImage: 'url("/herobg2.png")',
         }}
         role="img"
         aria-label="Technology and education background design"
       ></div>
 
       {/* Background decorative elements */}
-      <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0 opacity-10 z-0">
         <div className="absolute top-20 left-10 w-32 h-32 bg-aco-cyan rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 right-10 w-40 h-40 bg-aco-orange rounded-full blur-3xl animate-pulse delay-1000"></div>
         <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-aco-cyan rounded-full blur-2xl animate-pulse delay-500"></div>
@@ -88,15 +89,14 @@ export function HeroSection() {
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </Button>
             </Link>
-            <div className="flex items-center space-x-4 text-white bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20">
+            <div className="flex items-center space-x-2 text-white bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20">
               <div className="flex space-x-2 items-center">
-                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                <span className="text-sm font-medium">✓ 80% Free</span>
+                <CheckBadgeIcon className="text-aco-cyan w-5 h-5 animate-pulse"/><span className="text-sm font-medium">80% Free</span>
               </div>
               <div className="w-px h-4 bg-white/30"></div>
-              <span className="text-sm font-medium">✓ No Hidden Costs</span>
+                <CheckBadgeIcon className="text-aco-cyan w-5 h-5 animate-pulse"/> <span className="text-sm font-medium">No Hidden Costs</span>
               <div className="w-px h-4 bg-white/30"></div>
-              <span className="text-sm font-medium">✓ Global Opportunities</span>
+                <CheckBadgeIcon className="text-aco-cyan w-5 h-5 animate-pulse"/><span className="text-sm font-medium">Global Opportunities</span>
             </div>
           </div>
 
