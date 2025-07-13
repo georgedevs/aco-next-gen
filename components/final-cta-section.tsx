@@ -31,7 +31,7 @@ export function FinalCtaSection() {
     <section
       className="py-20 bg-gradient-to-br bg-blend-multiply from-aco-navy to-aco-navy/95 text-white"
       style={{
-        backgroundImage: "url('/footerbg.png')",
+        backgroundImage: "url('/footerbg.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

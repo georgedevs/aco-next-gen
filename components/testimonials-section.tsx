@@ -32,7 +32,7 @@ export function TestimonialsSection() {
       name: "Samuel",
       role: "Graphic Designer",
       location: "Madrid, Spain",
-      image: "/Samuel.png",
+      image: "/Samuel.jpg",
       content:
         "Everything changed when I received the Aco NextGen Tech Scholarship. That opportunity opened a completely new world for me. Today, I'm a working Graphic Designer, creating powerful visual content for brands and telling stories through design.",
       rating: 5,
