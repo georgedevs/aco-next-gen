@@ -23,7 +23,7 @@ export function TestimonialsSection() {
       name: "Toke",
       role: "Product Designer",
       location: "London, UK",
-      image: "/toke.jpg",
+      image: "/toke.JPG",
       content:
         "The Aco NextGen Tech Scholarship completely changed the trajectory of my life. Through the scholarship, I gained access to professional-grade training, experienced mentorship, and real industry projects that helped me develop into a confident, skilled Product Designer.",
       rating: 5,
