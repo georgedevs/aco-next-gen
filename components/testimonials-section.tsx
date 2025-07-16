@@ -11,36 +11,32 @@ export function TestimonialsSection() {
 
   const testimonials = [
     {
-      name: "Muyiwa",
+      name: "Muyiwa Taiwo",
       role: "Product Designer",
-      location: "Lagos, NG",
       image: "/Muyiwa.jpg",
       content:
         "Getting accepted into the Aco NextGen Tech Scholarship was the turning point I needed. Through comprehensive hands-on training, dedicated mentorship, and challenging real-world design projects, I gained the skills and confidence to transition into tech as a Product Designer.",
       rating: 5,
     },
     {
-      name: "Toke",
+      name: "Adetoke Akinlabi",
       role: "Product Designer",
-      location: "London, UK",
       image: "/toke.JPG",
       content:
         "The Aco NextGen Tech Scholarship completely changed the trajectory of my life. Through the scholarship, I gained access to professional-grade training, experienced mentorship, and real industry projects that helped me develop into a confident, skilled Product Designer.",
       rating: 5,
     },
     {
-      name: "Samuel",
+      name: "Samuel Oluwasegun",
       role: "Graphic Designer",
-      location: "Madrid, Spain",
       image: "/Samuel.jpg",
       content:
         "Everything changed when I received the Aco NextGen Tech Scholarship. That opportunity opened a completely new world for me. Today, I'm a working Graphic Designer, creating powerful visual content for brands and telling stories through design.",
       rating: 5,
     },
     {
-      name: "Princess ",
+      name: "Princess Ogbebor",
       role: "Product Designer",
-      location: "Toronto, Canada",
       image: "/Princess.jpg",
       content:
         "The program gave me more than just access to learning. It gave me clear direction, experienced mentorship, and a supportive community that believed in my potential. Today, while still in school, I work remotely as a paid Product Designer, doing the work I love and growing every day in a field I never imagined I could be part of so soon.",
@@ -131,10 +127,6 @@ export function TestimonialsSection() {
                     <div className="font-bold text-gray-900 text-xl">{testimonials[currentIndex].name}</div>
                     <div className="text-aco-teal font-semibold text-lg bg-aco-teal/10 inline-block px-3 py-1 rounded-full">
                       {testimonials[currentIndex].role}
-                    </div>
-                    <div className="text-gray-500 flex items-center justify-center md:justify-start">
-                      <div className="w-2 h-2 bg-aco-orange rounded-full mr-2"></div>
-                      {testimonials[currentIndex].location}
                     </div>
                   </div>
                 </div>
