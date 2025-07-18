@@ -13,8 +13,8 @@ export function VideoSection() {
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-aco-navy mb-4">Meet the CEO</h2>
             <p className="text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto mb-6">
-              A seasoned developer with <span className="font-bold text-aco-orange">15+ years of experience</span> in designing WordPress applications, 
-              award-winning web designs and proficient in <span className="font-bold text-aco-teal">HTML, CSS and JavaScript</span>.
+              A seasoned developer with over <span className="font-bold text-aco-orange">15 years of experience</span> developing 
+              award-winning websites and applications. Now, he is giving back to society through the <span className="font-bold text-aco-teal">Aco Nextgen scholarship program</span>.
             </p>
             
             {/* Connecting bridge to video */}

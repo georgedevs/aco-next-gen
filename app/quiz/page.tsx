@@ -925,8 +925,8 @@ export default function QuizPage() {
                 <div className="flex items-start gap-3">
                   <div className="flex-shrink-0">
                     <Image
-                      src="/student2.jpeg"
-                      alt="Sarah K."
+                      src="/Muyiwa.jpg"
+                      alt="Muyiwa Taiwo"
                       width={40}
                       height={40}
                       className="rounded-full object-cover"
@@ -936,7 +936,7 @@ export default function QuizPage() {
                     <p className="font-comfortaa text-sm italic text-aco-cyan leading-relaxed">
                       "This quiz helped me transition from marketing to UX design. Best decision ever!"
                     </p>
-                    <span className="block text-xs mt-2 text-white/70 font-medium">- Sarah K., Product Designer</span>
+                    <span className="block text-xs mt-2 text-white/70 font-medium">- Muyiwa Taiwo, Product Designer</span>
                   </div>
                 </div>
               </div>
@@ -1117,8 +1117,8 @@ export default function QuizPage() {
 
               {/* Section Info */}
               <div className="mb-6">
-                <div className="text-sm font-semibold text-aco-cyan mb-1">{sections[quizState.currentSection]?.title}</div>
-                <div className="text-xs text-gray-500">{sections[quizState.currentSection]?.subtitle}</div>
+                <div className="text-2xl md:text-3xl font-black text-aco-cyan mb-2 font-heading">{sections[quizState.currentSection]?.title}</div>
+                <div className="text-lg md:text-xl font-extrabold text-gray-600 font-sans">{sections[quizState.currentSection]?.subtitle}</div>
               </div>
               
               {/* Question */}
