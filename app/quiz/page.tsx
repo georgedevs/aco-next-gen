@@ -42,285 +42,481 @@ import {
 } from "lucide-react"
 import { CheckBadgeIcon } from "@heroicons/react/24/solid"
 
-// Quiz Data Structure
+// Quiz Data Structure - Updated to match instruction.md
 const courses = {
-  'Graphic Design': { description: 'Master visual communication through creative design, branding, and digital artwork.' },
-  'Product Design Mastery': { description: 'Design user-centered products and experiences.' },
-  'Cyber Security': { description: 'Protect digital assets and systems from cyber threats.' },
-  'Web Design (WordPress)': { description: 'Create stunning, responsive websites using WordPress.' },
-  'Front-end Web Development': { description: 'Build interactive user interfaces with HTML, CSS, JS.' },
-  'Backend Web Development': { description: 'Develop server-side applications and APIs.' },
-  'Full Stack Programming': { description: 'Master both frontend and backend development.' },
-  'SEO Training': { description: 'Optimize websites for search engines and drive organic traffic.' },
-  'Business Model Mastery': { description: 'Create, analyze, and optimize business models.' },
-  'Digital Marketing': { description: 'Master online marketing strategies and campaigns.' },
-  'Cloud Computing': { description: 'Deploy and manage applications on cloud platforms.' },
-  'Dev Ops': { description: 'Streamline development and build scalable systems.' },
-  'Data Analysis': { description: 'Extract insights from data using analysis and visualization.' },
-  'Product Management': { description: 'Lead product development and coordinate teams.' },
-  'Office Suite': { description: 'Master productivity tools for business efficiency.' }
+  'Web Development Fundamentals': { description: 'Learn the basics of web development to start your career quickly.' },
+  'Beginner Coding Bootcamp': { description: 'Build something for yourself or as a hobby with fundamental coding skills.' },
+  'Advanced Front-End Development Program': { description: 'Specialize in user interfaces and modern frontend technologies.' },
+  'Backend Development Professional Track': { description: 'Work with databases, servers, and backend architecture.' },
+  'Complete Full-Stack Developer Program': { description: 'Build complete web applications from frontend to backend.' },
+  'Graphic Design Bootcamp': { description: 'Create compelling visual designs and brand materials quickly.' },
+  'UX/UI Design Essentials': { description: 'Design user-friendly websites and applications.' },
+  'WordPress Web Design': { description: 'Build websites using WordPress and drag-and-drop tools.' },
+  'Freelance Graphic Designer Course': { description: 'Start your own graphic design business.' },
+  'Freelance UX/UI Designer Track': { description: 'Work independently as a UX/UI designer.' },
+  'WordPress Freelancer Program': { description: 'Build WordPress websites for clients.' },
+  'Professional Graphic Design Program': { description: 'Become a professional with strong graphic design skills.' },
+  'Complete UX/UI Design Program': { description: 'Master comprehensive product design and user experience.' },
+  'Advanced WordPress Development': { description: 'Advanced WordPress development and customization.' },
+  'Cyber Security (Foundations Course)': { description: 'Learn cybersecurity basics and fundamentals.' },
+  'Ethical Hacking and Pentesting': { description: 'Become a penetration tester and ethical hacker.' },
+  'Bug Bounty Program': { description: 'Find and report security vulnerabilities for rewards.' },
+  'Digital Forensics': { description: 'Investigate cyber incidents and digital forensics.' },
+  'Governance, Risk, and Compliance (GRC)': { description: 'Work in cybersecurity governance and compliance.' },
+  'Data Analysis': { description: 'Work with spreadsheets and find trends in data.' },
+  'SEO Training': { description: 'Learn how websites rank on Google and optimization techniques.' },
+  'Office Suite': { description: 'Master Word, Excel, PowerPoint for team organization.' },
+  'Digital Marketing': { description: 'Create online ads, content, and grow brands on social media.' },
+  'Graphic Design Basics': { description: 'Learn fundamental design principles and tools for personal projects.' }
 }
 
+// Simplified structure for new 5-question flow
 const sections = [
-  { title: "Core Interests", subtitle: "What drives your passion in technology?" },
-  { title: "Creative Preferences", subtitle: "How do you prefer to express creativity?" },
-  { title: "Problem-Solving Style", subtitle: "Your approach to tackling challenges" },
-  { title: "Data & Analysis", subtitle: "Your relationship with data and insights" },
-  { title: "Communication & Business", subtitle: "Business acumen and marketing interests" },
-  { title: "Work Environment", subtitle: "Your preferred working style and setup" },
-  { title: "Career Goals", subtitle: "Long-term goals and vision" }
+  { title: "Career Discovery", subtitle: "Let's find your perfect tech path" }
 ]
 
-const questions = [
-  // Section 1: Core Interests
-  [
-    {
-      type: "single",
-      question: "What excites you the most?",
-      options: [
-        { text: "I love visually designing user experiences, layouts, and brand assets.", scores: { 'Graphic Design': 3, 'Product Design Mastery': 2 } },
-        { text: "I enjoy writing code and building websites or applications.", scores: { 'Front-end Web Development': 2, 'Backend Web Development': 2, 'Full Stack Programming': 2 } },
-        { text: "I'm fascinated by working with data—analyzing numbers, dashboards, and insights.", scores: { 'Data Analysis': 3, 'SEO Training': 1 } },
-        { text: "I want to learn how to market products online—ads, social media, SEO.", scores: { 'Digital Marketing': 2, 'SEO Training': 2 } },
-        { text: "I'm curious about securing systems or setting up and automating infrastructure.", scores: { 'Cyber Security': 3, 'Dev Ops': 2, 'Cloud Computing': 1 } },
-        { text: "I want to lead products/projects and coordinate cross-functional teams.", scores: { 'Product Management': 3, 'Business Model Mastery': 2 } }
-      ]
-    },
-    {
-      type: "single",
-      question: "Which of these would you most like to master?",
-      options: [
-        { text: "Building beautiful, functional websites", scores: { 'Web Design (WordPress)': 3, 'Front-end Web Development': 2 } },
-        { text: "Designing digital products and apps", scores: { 'Product Design Mastery': 3, 'Graphic Design': 2 } },
-        { text: "Protecting data and digital assets", scores: { 'Cyber Security': 3, 'Cloud Computing': 1 } },
-        { text: "Analyzing and visualizing data", scores: { 'Data Analysis': 3, 'SEO Training': 1 } },
-        { text: "Marketing and growing businesses online", scores: { 'Digital Marketing': 3, 'Business Model Mastery': 2 } }
-      ]
-    },
-    {
-      type: "single",
-      question: "What motivates you to keep learning?",
-      options: [
-        { text: "The satisfaction of creating something new", scores: { 'Product Design Mastery': 2, 'Graphic Design': 2, 'Web Design (WordPress)': 1 } },
-        { text: "Solving complex technical problems", scores: { 'Backend Web Development': 2, 'Full Stack Programming': 2, 'Dev Ops': 1 } },
-        { text: "Keeping systems and data safe", scores: { 'Cyber Security': 2, 'Cloud Computing': 1 } },
-        { text: "Making data-driven decisions", scores: { 'Data Analysis': 2, 'Digital Marketing': 1, 'SEO Training': 1 } },
-        { text: "The impact of visual communication", scores: { 'Graphic Design': 2, 'Product Design Mastery': 1 } }
-      ]
-    }
-  ],
-  // Section 2: Creative Preferences
-  [
-    {
-      type: "single",
-      question: "How do you prefer to express your creativity?",
-      options: [
-        { text: "Visual design - creating layouts, graphics, and brand aesthetics", scores: { 'Graphic Design': 3, 'Product Design Mastery': 2, 'Web Design (WordPress)': 1 } },
-        { text: "Code as craft - building elegant, functional solutions", scores: { 'Front-end Web Development': 2, 'Full Stack Programming': 2, 'Backend Web Development': 1 } },
-        { text: "Data visualization - making complex information beautiful and clear", scores: { 'Data Analysis': 3, 'Digital Marketing': 1, 'SEO Training': 1 } },
-        { text: "Content creation - writing, storytelling, and communication", scores: { 'Digital Marketing': 2, 'SEO Training': 2, 'Business Model Mastery': 1 } },
-        { text: "System design - architecting and organizing complex structures", scores: { 'Dev Ops': 2, 'Cloud Computing': 2, 'Backend Web Development': 1 } }
-      ]
-    },
-    {
-      type: "single",
-      question: "What type of creative projects energize you most?",
-      options: [
-        { text: "Brand identity and visual communication projects", scores: { 'Graphic Design': 3, 'Product Design Mastery': 1 } },
-        { text: "User interface and experience design", scores: { 'Product Design Mastery': 3, 'Front-end Web Development': 2, 'Web Design (WordPress)': 1 } },
-        { text: "Website design and development", scores: { 'Web Design (WordPress)': 3, 'Front-end Web Development': 2 } },
-        { text: "Marketing campaigns and growth strategies", scores: { 'Digital Marketing': 3, 'SEO Training': 2, 'Business Model Mastery': 1 } },
-        { text: "Security solutions and system protection", scores: { 'Cyber Security': 3, 'Dev Ops': 1 } }
-      ]
-    }
-  ],
-  // Section 3: Problem-Solving Style
-  [
-    {
-      type: "single",
-      question: "How do you approach complex problems?",
-      options: [
-        { text: "Break it down visually - diagrams, wireframes, and mockups", scores: { 'Graphic Design': 2, 'Product Design Mastery': 3, 'Web Design (WordPress)': 1 } },
-        { text: "Code through it - prototype and iterate quickly", scores: { 'Front-end Web Development': 2, 'Full Stack Programming': 2, 'Backend Web Development': 1 } },
-        { text: "Analyze the data - gather metrics and evidence first", scores: { 'Data Analysis': 3, 'Digital Marketing': 1, 'SEO Training': 1 } },
-        { text: "Assess risks and vulnerabilities systematically", scores: { 'Cyber Security': 3, 'Dev Ops': 2, 'Cloud Computing': 1 } },
-        { text: "Define strategy and coordinate team resources", scores: { 'Product Management': 3, 'Business Model Mastery': 2, 'Digital Marketing': 1 } }
-      ]
-    },
-    {
-      type: "single",
-      question: "What energizes you most when solving technical challenges?",
-      options: [
-        { text: "Making it beautiful and user-friendly", scores: { 'Graphic Design': 2, 'Product Design Mastery': 2, 'Web Design (WordPress)': 2 } },
-        { text: "Building robust, scalable systems", scores: { 'Backend Web Development': 3, 'Dev Ops': 2, 'Cloud Computing': 2 } },
-        { text: "Finding patterns and insights in complex data", scores: { 'Data Analysis': 3, 'SEO Training': 1 } },
-        { text: "Protecting and securing digital assets", scores: { 'Cyber Security': 3, 'Dev Ops': 1 } },
-        { text: "Optimizing for growth and performance", scores: { 'Digital Marketing': 2, 'SEO Training': 3, 'Business Model Mastery': 1 } }
-      ]
-    },
-    {
-      type: "multi",
-      question: "Which problem-solving approaches do you naturally gravitate toward?",
-      options: [
-        { text: "User-centered design thinking", scores: { 'Product Design Mastery': 2, 'Graphic Design': 1, 'Web Design (WordPress)': 1 } },
-        { text: "Technical debugging and troubleshooting", scores: { 'Backend Web Development': 2, 'Dev Ops': 2, 'Full Stack Programming': 1 } },
-        { text: "Data-driven hypothesis testing", scores: { 'Data Analysis': 3, 'Digital Marketing': 1 } },
-        { text: "Security-first threat modeling", scores: { 'Cyber Security': 3, 'Cloud Computing': 1 } },
-        { text: "Business process optimization", scores: { 'Business Model Mastery': 2, 'Product Management': 2, 'Office Suite': 1 } },
-        { text: "Cross-platform integration solutions", scores: { 'Full Stack Programming': 2, 'Cloud Computing': 2, 'Dev Ops': 1 } }
-      ]
-    }
-  ],
-  // Section 4: Data & Analysis
-  [
-    {
-      type: "single",
-      question: "What excites you most about working with data?",
-      options: [
-        { text: "Creating compelling visualizations and dashboards", scores: { 'Data Analysis': 3, 'Digital Marketing': 1 } },
-        { text: "Discovering hidden patterns and insights", scores: { 'Data Analysis': 3, 'SEO Training': 1, 'Cyber Security': 1 } },
-        { text: "Tracking and optimizing marketing performance", scores: { 'Digital Marketing': 3, 'SEO Training': 2, 'Data Analysis': 1 } },
-        { text: "Making data-driven product decisions", scores: { 'Product Management': 2, 'Data Analysis': 2, 'Business Model Mastery': 1 } },
-        { text: "Analyzing security logs and threat patterns", scores: { 'Cyber Security': 3, 'Data Analysis': 1 } }
-      ]
-    },
-    {
-      type: "single",
-      question: "How comfortable are you with numbers and statistics?",
-      options: [
-        { text: "Very comfortable - I love diving deep into complex datasets", scores: { 'Data Analysis': 3, 'Digital Marketing': 1, 'SEO Training': 1 } },
-        { text: "Moderately comfortable - I can work with basic analytics", scores: { 'Digital Marketing': 2, 'SEO Training': 2, 'Product Management': 1 } },
-        { text: "I prefer visual representations over raw numbers", scores: { 'Graphic Design': 2, 'Product Design Mastery': 2, 'Web Design (WordPress)': 1 } },
-        { text: "I focus more on implementation than analysis", scores: { 'Front-end Web Development': 2, 'Backend Web Development': 2, 'Dev Ops': 1 } },
-        { text: "I'm more comfortable with basic spreadsheets and reports", scores: { 'Office Suite': 3, 'Business Model Mastery': 1 } }
-      ]
-    },
-    {
-      type: "multi",
-      question: "Which data-related activities interest you?",
-      options: [
-        { text: "Building interactive charts and reports", scores: { 'Data Analysis': 3, 'Digital Marketing': 1 } },
-        { text: "SEO keyword research and website analytics", scores: { 'SEO Training': 3, 'Digital Marketing': 2, 'Data Analysis': 1 } },
-        { text: "A/B testing and conversion optimization", scores: { 'Digital Marketing': 2, 'SEO Training': 2, 'Data Analysis': 1 } },
-        { text: "Security monitoring and log analysis", scores: { 'Cyber Security': 3, 'Dev Ops': 1 } },
-        { text: "Cloud metrics and infrastructure monitoring", scores: { 'Cloud Computing': 2, 'Dev Ops': 2, 'Data Analysis': 1 } },
-        { text: "I prefer to avoid working with data", scores: { 'Graphic Design': 1, 'Product Design Mastery': 1 } }
-      ]
-    }
-  ],
-  // Section 5: Communication & Business
-  [
-    {
-      type: "single",
-      question: "How do you prefer to communicate your ideas?",
-      options: [
-        { text: "Through visual design and compelling graphics", scores: { 'Graphic Design': 3, 'Product Design Mastery': 2, 'Digital Marketing': 1 } },
-        { text: "Written content, blogs, and documentation", scores: { 'Digital Marketing': 2, 'SEO Training': 2, 'Business Model Mastery': 1 } },
-        { text: "Data presentations and analytical reports", scores: { 'Data Analysis': 3, 'Product Management': 1 } },
-        { text: "Strategic presentations and business cases", scores: { 'Product Management': 3, 'Business Model Mastery': 2, 'Digital Marketing': 1 } },
-        { text: "Through code, prototypes, and technical demos", scores: { 'Front-end Web Development': 2, 'Full Stack Programming': 2, 'Backend Web Development': 1 } }
-      ]
-    },
-    {
-      type: "single",
-      question: "What aspects of business interest you most?",
-      options: [
-        { text: "Marketing strategy and customer acquisition", scores: { 'Digital Marketing': 3, 'SEO Training': 2, 'Business Model Mastery': 1 } },
-        { text: "Product strategy and roadmap planning", scores: { 'Product Management': 3, 'Product Design Mastery': 1, 'Business Model Mastery': 1 } },
-        { text: "Business model innovation and revenue optimization", scores: { 'Business Model Mastery': 3, 'Digital Marketing': 1 } },
-        { text: "Risk management and compliance", scores: { 'Cyber Security': 2, 'Business Model Mastery': 1 } },
-        { text: "Operations and process optimization", scores: { 'Dev Ops': 2, 'Office Suite': 2, 'Cloud Computing': 1 } }
-      ]
-    },
-    {
-      type: "multi",
-      question: "Which business activities would you enjoy being involved in?",
-      options: [
-        { text: "Market research and competitive analysis", scores: { 'Digital Marketing': 2, 'SEO Training': 2, 'Data Analysis': 1 } },
-        { text: "Brand development and visual identity", scores: { 'Graphic Design': 3, 'Digital Marketing': 1 } },
-        { text: "Growth hacking and performance marketing", scores: { 'Digital Marketing': 3, 'SEO Training': 2 } },
-        { text: "Product launch planning and coordination", scores: { 'Product Management': 3, 'Business Model Mastery': 1 } },
-        { text: "Documentation and process standardization", scores: { 'Office Suite': 3, 'Business Model Mastery': 1, 'Product Management': 1 } },
-        { text: "I prefer to focus purely on technical work", scores: { 'Backend Web Development': 2, 'Dev Ops': 2, 'Cyber Security': 1 } }
-      ]
-    }
-  ],
-  // Section 6: Work Environment
-  [
-    {
-      type: "single",
-      question: "What type of work environment motivates you most?",
-      options: [
-        { text: "Creative studio environment with design freedom", scores: { 'Graphic Design': 3, 'Product Design Mastery': 2, 'Web Design (WordPress)': 1 } },
-        { text: "Collaborative teams with cross-functional projects", scores: { 'Product Management': 3, 'Business Model Mastery': 2, 'Digital Marketing': 1 } },
-        { text: "Focused coding environment with minimal distractions", scores: { 'Backend Web Development': 3, 'Full Stack Programming': 2, 'Front-end Web Development': 1 } },
-        { text: "Secure, high-stakes environment with clear protocols", scores: { 'Cyber Security': 3, 'Dev Ops': 1 } },
-        { text: "Data-rich environment with analytics and insights", scores: { 'Data Analysis': 3, 'SEO Training': 1, 'Digital Marketing': 1 } }
-      ]
-    },
-    {
-      type: "single",
-      question: "How do you prefer to structure your workday?",
-      options: [
-        { text: "Project sprints with clear deliverables and deadlines", scores: { 'Product Management': 2, 'Digital Marketing': 2, 'SEO Training': 1 } },
-        { text: "Deep focus blocks for complex problem-solving", scores: { 'Backend Web Development': 2, 'Data Analysis': 2, 'Cyber Security': 2 } },
-        { text: "Creative exploration with flexible timelines", scores: { 'Graphic Design': 3, 'Product Design Mastery': 2 } },
-        { text: "Systematic processes with automation and optimization", scores: { 'Dev Ops': 3, 'Cloud Computing': 2, 'Office Suite': 1 } },
-        { text: "Client work with varied projects and requirements", scores: { 'Web Design (WordPress)': 3, 'Digital Marketing': 2, 'Graphic Design': 1 } }
-      ]
-    },
-    {
-      type: "multi",
-      question: "Which work characteristics appeal to you?",
-      options: [
-        { text: "Fast-paced, dynamic environment with rapid changes", scores: { 'Digital Marketing': 2, 'Front-end Web Development': 2, 'SEO Training': 1 } },
-        { text: "Detail-oriented work requiring precision and accuracy", scores: { 'Cyber Security': 2, 'Data Analysis': 2, 'Backend Web Development': 1 } },
-        { text: "High collaboration and team interaction", scores: { 'Product Management': 2, 'Product Design Mastery': 2, 'Business Model Mastery': 1 } },
-        { text: "Independent work with creative autonomy", scores: { 'Graphic Design': 2, 'Full Stack Programming': 2, 'Web Design (WordPress)': 1 } },
-        { text: "Results-driven environment with clear metrics", scores: { 'Digital Marketing': 2, 'SEO Training': 2, 'Data Analysis': 1 } },
-        { text: "Hands-on technical implementation", scores: { 'Dev Ops': 2, 'Cloud Computing': 2, 'Backend Web Development': 1 } }
-      ]
-    }
-  ],
-  // Section 7: Career Goals
-  [
-    {
-      type: "single",
-      question: "What's your primary career goal in the next 2-3 years?",
-      options: [
-        { text: "Become a skilled designer creating impactful visual work", scores: { 'Graphic Design': 3, 'Product Design Mastery': 2, 'Web Design (WordPress)': 1 } },
-        { text: "Master programming and build complex applications", scores: { 'Full Stack Programming': 3, 'Backend Web Development': 2, 'Front-end Web Development': 2 } },
-        { text: "Become a data expert driving business insights", scores: { 'Data Analysis': 3, 'Digital Marketing': 1, 'SEO Training': 1 } },
-        { text: "Lead products and teams to successful launches", scores: { 'Product Management': 3, 'Business Model Mastery': 2, 'Digital Marketing': 1 } },
-        { text: "Specialize in cybersecurity and system protection", scores: { 'Cyber Security': 3, 'Dev Ops': 1, 'Cloud Computing': 1 } }
-      ]
-    },
-    {
-      type: "single",
-      question: "How do you define career success?",
-      options: [
-        { text: "Financial stability and high earning potential", scores: { 'Business Model Mastery': 2, 'Product Management': 2, 'Cyber Security': 1 } },
-        { text: "Making a meaningful impact through my work", scores: { 'Product Design Mastery': 2, 'Digital Marketing': 2, 'Data Analysis': 1 } },
-        { text: "Continuous learning and skill development", scores: { 'Full Stack Programming': 2, 'Dev Ops': 2, 'Cloud Computing': 2 } },
-        { text: "Creative fulfillment and artistic expression", scores: { 'Graphic Design': 3, 'Product Design Mastery': 1, 'Web Design (WordPress)': 1 } },
-        { text: "Building and leading successful teams", scores: { 'Product Management': 3, 'Business Model Mastery': 2 } }
-      ]
-    },
-    {
-      type: "multi",
-      question: "Which long-term career paths interest you?",
-      options: [
-        { text: "Creative director or senior designer", scores: { 'Graphic Design': 2, 'Product Design Mastery': 2, 'Web Design (WordPress)': 1 } },
-        { text: "Tech lead or engineering manager", scores: { 'Full Stack Programming': 2, 'Backend Web Development': 2, 'Dev Ops': 1 } },
-        { text: "Data scientist or analytics leader", scores: { 'Data Analysis': 3, 'Digital Marketing': 1 } },
-        { text: "Product manager or startup founder", scores: { 'Product Management': 3, 'Business Model Mastery': 2 } },
-        { text: "Security architect or compliance officer", scores: { 'Cyber Security': 3, 'Dev Ops': 1 } },
-        { text: "Marketing director or growth specialist", scores: { 'Digital Marketing': 3, 'SEO Training': 2, 'Business Model Mastery': 1 } },
-        { text: "Cloud architect or infrastructure specialist", scores: { 'Cloud Computing': 3, 'Dev Ops': 2, 'Backend Web Development': 1 } }
-      ]
-    }
-  ]
-]
+// New question structure based on instruction.md
+const questionFlows = {
+  "Q1": {
+    id: "Q1",
+    type: "single",
+    question: "What kind of work sounds exciting to you?",
+    options: [
+      { 
+        text: "Building websites, apps, or tech products from scratch", 
+        nextQuestion: "dev-explorer",
+        icon: "code"
+      },
+      { 
+        text: "Designing beautiful visuals or making websites look nice and easy to use", 
+        nextQuestion: "design-explorer",
+        icon: "palette"
+      },
+      { 
+        text: "Figuring out how to protect computers, networks, and information", 
+        nextQuestion: "cyber-explorer",
+        icon: "shield"
+      },
+      { 
+        text: "Finding insights in numbers, spreadsheets, or search engines", 
+        nextQuestion: "data-explorer",
+        icon: "bar-chart"
+      },
+      { 
+        text: "Organizing documents, helping teams work smoothly, or marketing things online", 
+        nextQuestion: "tools-explorer",
+        icon: "megaphone"
+      }
+    ]
+  },
+  
+  "dev-explorer": {
+    id: "dev-explorer",
+    type: "single",
+    question: "Which of these feels most natural to you?",
+    options: [
+      { 
+        text: "I want to build how things look on a site (buttons, layout, animations)", 
+        nextQuestion: "dev-style-frontend",
+        pathway: "Front-End"
+      },
+      { 
+        text: "I want to build how things work behind the scenes (data, logic)", 
+        nextQuestion: "dev-style-backend",
+        pathway: "Back-End"
+      },
+      { 
+        text: "I'd love to learn everything and build full websites or apps myself", 
+        nextQuestion: "dev-style-fullstack",
+        pathway: "Full-Stack"
+      }
+    ]
+  },
+  
+  "design-explorer": {
+    id: "design-explorer",
+    type: "single",
+    question: "What's your design vibe?",
+    options: [
+      { 
+        text: "I enjoy creating posters, flyers, logos, or Instagram graphics", 
+        nextQuestion: "design-comfort-graphic",
+        pathway: "Graphic Design"
+      },
+      { 
+        text: "I love designing websites/apps and making them easy to use", 
+        nextQuestion: "design-comfort-product",
+        pathway: "Product Design"
+      },
+      { 
+        text: "I want to build websites using drag-and-drop tools (like WordPress)", 
+        nextQuestion: "design-comfort-wordpress",
+        pathway: "Web Design – WordPress"
+      }
+    ]
+  },
+  
+  "cyber-explorer": {
+    id: "cyber-explorer",
+    type: "single",
+    question: "What would you rather do first?",
+    options: [
+      { 
+        text: "Learn how to find and fix security issues", 
+        nextQuestion: "cyber-style"
+      },
+      { 
+        text: "Understand how hackers think and how systems are protected", 
+        nextQuestion: "cyber-style"
+      }
+    ]
+  },
+  
+  "data-explorer": {
+    id: "data-explorer",
+    type: "single",
+    question: "Which sounds more like you?",
+    options: [
+      { 
+        text: "I like working with spreadsheets and finding trends", 
+        recommendation: "Data Analysis",
+        exit: true
+      },
+      { 
+        text: "I'm curious about how websites rank on Google", 
+        recommendation: "SEO Training",
+        exit: true
+      }
+    ]
+  },
+  
+  "tools-explorer": {
+    id: "tools-explorer",
+    type: "single",
+    question: "Pick what you'd enjoy doing most:",
+    options: [
+      { 
+        text: "Helping teams stay organized using tools like Word, Excel, or PowerPoint", 
+        recommendation: "Office Suite",
+        exit: true
+      },
+      { 
+        text: "Creating online ads, content, and growing brands on social media", 
+        nextQuestion: "marketing-style"
+      }
+    ]
+  },
+  
+  "dev-style-frontend": {
+    id: "dev-style-frontend",
+    type: "single",
+    question: "How comfortable are you with coding?",
+    pathway: "Front-End",
+    options: [
+      { 
+        text: "I'm completely new to coding and want to start simple", 
+        nextQuestion: "dev-learning-beginner"
+      },
+      { 
+        text: "I have some experience or I'm ready for a challenge", 
+        recommendation: "Advanced Front-End Development Program",
+        exit: true
+      }
+    ]
+  },
+  
+  "dev-style-backend": {
+    id: "dev-style-backend",
+    type: "single",
+    question: "How comfortable are you with coding?",
+    pathway: "Back-End",
+    options: [
+      { 
+        text: "I'm completely new to coding and want to start simple", 
+        nextQuestion: "dev-learning-beginner"
+      },
+      { 
+        text: "I have some experience or I'm ready for a challenge", 
+        recommendation: "Backend Development Professional Track",
+        exit: true
+      }
+    ]
+  },
+  
+  "dev-style-fullstack": {
+    id: "dev-style-fullstack",
+    type: "single",
+    question: "How comfortable are you with coding?",
+    pathway: "Full-Stack",
+    options: [
+      { 
+        text: "I'm completely new to coding and want to start simple", 
+        nextQuestion: "dev-learning-beginner"
+      },
+      { 
+        text: "I have some experience or I'm ready for a challenge", 
+        recommendation: "Complete Full-Stack Developer Program",
+        exit: true
+      }
+    ]
+  },
+  
+  "dev-learning-beginner": {
+    id: "dev-learning-beginner",
+    type: "single",
+    question: "What's your main goal for learning development?",
+    options: [
+      { 
+        text: "To get a job as soon as possible", 
+        recommendation: "Web Development Fundamentals",
+        exit: true
+      },
+      { 
+        text: "To build something for myself or as a hobby", 
+        recommendation: "Beginner Coding Bootcamp",
+        exit: true
+      }
+    ]
+  },
+  
+  "design-comfort-graphic": {
+    id: "design-comfort-graphic",
+    type: "single",
+    question: "Have you used any design tools like Canva, Figma, or Photoshop?",
+    pathway: "Graphic Design",
+    options: [
+      { 
+        text: "Yes, I've used them a little or want to learn more", 
+        nextQuestion: "design-goal-graphic"
+      },
+      { 
+        text: "Not really, but I'm excited to start simple", 
+        nextQuestion: "design-goal-beginner-graphic"
+      }
+    ]
+  },
+  
+  "design-comfort-product": {
+    id: "design-comfort-product",
+    type: "single",
+    question: "Have you used any design tools like Canva, Figma, or Photoshop?",
+    pathway: "Product Design",
+    options: [
+      { 
+        text: "Yes, I've used them a little or want to learn more", 
+        nextQuestion: "design-goal-product"
+      },
+      { 
+        text: "Not really, but I'm excited to start simple", 
+        nextQuestion: "design-goal-beginner-product"
+      }
+    ]
+  },
+  
+  "design-comfort-wordpress": {
+    id: "design-comfort-wordpress",
+    type: "single",
+    question: "Have you used any design tools like Canva, Figma, or Photoshop?",
+    pathway: "WordPress",
+    options: [
+      { 
+        text: "Yes, I've used them a little or want to learn more", 
+        nextQuestion: "design-goal-wordpress"
+      },
+      { 
+        text: "Not really, but I'm excited to start simple", 
+        recommendation: "WordPress Web Design",
+        exit: true
+      }
+    ]
+  },
+  
+  "cyber-style": {
+    id: "cyber-style",
+    type: "single",
+    question: "Would you enjoy learning how to hack and protect systems?",
+    options: [
+      { 
+        text: "Yes, I want to go deep into it", 
+        nextQuestion: "cyber-goal"
+      },
+      { 
+        text: "I want to try the basics first, then decide", 
+        recommendation: "Cyber Security (Foundations Course)",
+        exit: true
+      }
+    ]
+  },
+  
+  "marketing-style": {
+    id: "marketing-style",
+    type: "single",
+    question: "Which best describes you?",
+    options: [
+      { 
+        text: "I love social media and can create content or run ads", 
+        recommendation: "Digital Marketing",
+        exit: true
+      },
+      { 
+        text: "I prefer staying in the background and analyzing what works", 
+        recommendation: "SEO Training",
+        exit: true
+      }
+    ]
+  },
+  
+  "design-goal-graphic": {
+    id: "design-goal-graphic",
+    type: "single",
+    question: "What's your main goal for learning design?",
+    pathway: "Graphic Design",
+    options: [
+      { 
+        text: "To get a job as soon as possible", 
+        recommendation: "Graphic Design Bootcamp",
+        exit: true
+      },
+      { 
+        text: "To build something for myself or freelancing", 
+        recommendation: "Freelance Graphic Designer Course",
+        exit: true
+      },
+      { 
+        text: "To become a professional with strong skills long-term", 
+        recommendation: "Professional Graphic Design Program",
+        exit: true
+      }
+    ]
+  },
+  
+  "design-goal-product": {
+    id: "design-goal-product",
+    type: "single",
+    question: "What's your main goal for learning design?",
+    pathway: "Product Design",
+    options: [
+      { 
+        text: "To get a job as soon as possible", 
+        recommendation: "UX/UI Design Essentials",
+        exit: true
+      },
+      { 
+        text: "To build something for myself or freelancing", 
+        recommendation: "Freelance UX/UI Designer Track",
+        exit: true
+      },
+      { 
+        text: "To become a professional with strong skills long-term", 
+        recommendation: "Complete UX/UI Design Program",
+        exit: true
+      }
+    ]
+  },
+  
+  "design-goal-wordpress": {
+    id: "design-goal-wordpress",
+    type: "single",
+    question: "What's your main goal for learning design?",
+    pathway: "WordPress",
+    options: [
+      { 
+        text: "To get a job as soon as possible", 
+        recommendation: "WordPress Web Design",
+        exit: true
+      },
+      { 
+        text: "To build something for myself or freelancing", 
+        recommendation: "WordPress Freelancer Program",
+        exit: true
+      },
+      { 
+        text: "To become a professional with strong skills long-term", 
+        recommendation: "Advanced WordPress Development",
+        exit: true
+      }
+    ]
+  },
+  
+  "design-goal-beginner-graphic": {
+    id: "design-goal-beginner-graphic",
+    type: "single",
+    question: "What's your main goal for learning design?",
+    pathway: "Graphic Design",
+    options: [
+      { 
+        text: "To get a job as soon as possible", 
+        recommendation: "WordPress Web Design",
+        exit: true
+      },
+      { 
+        text: "To build something for myself or freelancing", 
+        recommendation: "Graphic Design Basics",
+        exit: true
+      },
+      { 
+        text: "To become a professional with strong skills long-term", 
+        recommendation: "Professional Graphic Design Program",
+        exit: true
+      }
+    ]
+  },
+  
+  "design-goal-beginner-product": {
+    id: "design-goal-beginner-product",
+    type: "single",
+    question: "What's your main goal for learning design?",
+    pathway: "Product Design",
+    options: [
+      { 
+        text: "To get a job as soon as possible", 
+        recommendation: "WordPress Web Design",
+        exit: true
+      },
+      { 
+        text: "To build something for myself or freelancing", 
+        recommendation: "Graphic Design Basics",
+        exit: true
+      },
+      { 
+        text: "To become a professional with strong skills long-term", 
+        recommendation: "Complete UX/UI Design Program",
+        exit: true
+      }
+    ]
+  },
+  
+  "cyber-goal": {
+    id: "cyber-goal",
+    type: "single",
+    question: "What's your ultimate career goal in cybersecurity?",
+    options: [
+      { 
+        text: "To become a penetration tester or ethical hacker", 
+        recommendation: "Ethical Hacking and Pentesting",
+        exit: true
+      },
+      { 
+        text: "To find and report security vulnerabilities for rewards", 
+        recommendation: "Bug Bounty Program",
+        exit: true
+      },
+      { 
+        text: "To investigate cyber incidents and digital forensics", 
+        recommendation: "Digital Forensics",
+        exit: true
+      },
+      { 
+        text: "To work in governance, risk, and compliance", 
+        recommendation: "Governance, Risk, and Compliance (GRC)",
+        exit: true
+      }
+    ]
+  }
+};
+
+// For compatibility with existing code, create a questions array
+const questions = [[questionFlows["Q1"]]];
 
 interface QuizState {
   userEmail: string
@@ -333,11 +529,10 @@ interface QuizState {
   finalRecommendation: string
   currentScreen: string
   screenHistory: string[]
-  currentSection: number
-  currentQuestion: number
-  answers: Record<string, number | number[]>
-  skippedSections: number[]
-  adaptiveEnabled: boolean
+  currentQuestionId: string
+  questionHistory: string[]
+  answers: Record<string, number>
+  pathway: string
 }
 
 export default function QuizPage() {
@@ -352,11 +547,10 @@ export default function QuizPage() {
     finalRecommendation: '',
     currentScreen: 'email-capture',
     screenHistory: [],
-    currentSection: 0,
-    currentQuestion: 0,
+    currentQuestionId: 'Q1',
+    questionHistory: [],
     answers: {},
-    skippedSections: [],
-    adaptiveEnabled: true
+    pathway: ''
   })
 
   const [loading, setLoading] = useState(false)
@@ -385,12 +579,11 @@ export default function QuizPage() {
       const progress = JSON.parse(savedQuizProgress)
       setQuizState(prev => ({
         ...prev,
-        currentSection: progress.currentSection || 0,
-        currentQuestion: progress.currentQuestion || 0,
+        currentQuestionId: progress.currentQuestionId || 'Q1',
+        questionHistory: progress.questionHistory || [],
         answers: progress.answers || {},
         currentScreen: progress.currentScreen || 'email-capture',
-        skippedSections: progress.skippedSections || [],
-        adaptiveEnabled: progress.adaptiveEnabled !== undefined ? progress.adaptiveEnabled : true
+        pathway: progress.pathway || ''
       }))
     }
 
@@ -411,102 +604,32 @@ export default function QuizPage() {
   useEffect(() => {
     if (quizState.answers && Object.keys(quizState.answers).length > 0) {
       const progressData = {
-        currentSection: quizState.currentSection,
-        currentQuestion: quizState.currentQuestion,
+        currentQuestionId: quizState.currentQuestionId,
+        questionHistory: quizState.questionHistory,
         answers: quizState.answers,
         currentScreen: quizState.currentScreen,
-        skippedSections: quizState.skippedSections,
-        adaptiveEnabled: quizState.adaptiveEnabled
+        pathway: quizState.pathway
       }
       localStorage.setItem('acoQuizProgress', JSON.stringify(progressData))
     }
-  }, [quizState.currentSection, quizState.currentQuestion, quizState.answers, quizState.currentScreen])
+  }, [quizState.currentQuestionId, quizState.questionHistory, quizState.answers, quizState.currentScreen, quizState.pathway])
 
   const updateQuizState = (updates: Partial<QuizState>) => {
     setQuizState(prev => ({ ...prev, ...updates }))
   }
 
-  // Optimized scoring algorithm with memoization
-  const calculateScores = useMemo(() => {
-    const scores: Record<string, number> = {}
-    Object.keys(courses).forEach(course => { scores[course] = 0 })
-
-    Object.entries(quizState.answers).forEach(([questionId, answer]) => {
-      const [sectionIdx, questionIdx] = questionId.split('-').map(Number)
-      const question = questions[sectionIdx]?.[questionIdx]
-
-      if (!question) return
-
-      if (question.type === 'single' && typeof answer === 'number') {
-        const selectedOption = question.options[answer]
-        if (selectedOption?.scores) {
-          Object.entries(selectedOption.scores).forEach(([course, points]) => {
-            scores[course] += points
-          })
-        }
-      } else if (question.type === 'multi' && Array.isArray(answer)) {
-        answer.forEach(optionIdx => {
-          const selectedOption = question.options[optionIdx]
-          if (selectedOption?.scores) {
-            Object.entries(selectedOption.scores).forEach(([course, points]) => {
-              scores[course] += points
-            })
-          }
-        })
-      }
-    })
-
-    return scores
-  }, [quizState.answers])
-
-  // Constants for skip patterns (moved outside function for efficiency)
-  const SKIP_PATTERNS: Record<string, number[]> = {
-    'Graphic Design': [3], // Skip Data & Analysis section
-    'Data Analysis': [1], // Skip Creative Preferences section
-    'Cyber Security': [1, 4], // Skip Creative and Communication sections
-    'Digital Marketing': [], // Don't skip any - marketing needs broad knowledge
-    'Product Management': [], // Don't skip any - PM needs broad knowledge
-    'Backend Web Development': [1], // Skip Creative Preferences
-    'Dev Ops': [1, 4], // Skip Creative and Communication sections
+  // Get current question from the flow
+  const getCurrentQuestion = () => {
+    return questionFlows[quizState.currentQuestionId as keyof typeof questionFlows]
   }
 
-  // Optimized skip logic with memoization
-  const shouldSkipSection = useCallback((sectionIndex: number) => {
-    if (!quizState.adaptiveEnabled || quizState.currentSection < 2) {
-      return false // Don't skip until we have enough data (after 2 sections)
-    }
 
-    const sortedScores = Object.entries(calculateScores)
-      .sort(([, a], [, b]) => b - a)
-      .filter(([, score]) => score > 0)
-
-    if (sortedScores.length < 2) return false
-
-    const [topCourse, topScore] = sortedScores[0]
-    const [, secondScore] = sortedScores[1]
-
-    // Only skip if there's a dominant leader (3x more points and at least 8 points)
-    const isDominant = topScore >= secondScore * 3 && topScore >= 8
-
-    if (!isDominant) return false
-
-    const sectionsToSkip = SKIP_PATTERNS[topCourse] || []
-    return sectionsToSkip.includes(sectionIndex)
-  }, [calculateScores, quizState.adaptiveEnabled, quizState.currentSection])
-
-  // Memoized progress calculation (moved outside JSX)
+  // Simple progress calculation based on question history
   const progressPercentage = useMemo(() => {
-    // Calculate progress considering skipped sections
-    const totalQuestions = questions.reduce((sum, section) => sum + section.length, 0)
-    const skippedQuestions = quizState.skippedSections.reduce((sum, sectionIdx) => 
-      sum + (questions[sectionIdx]?.length || 0), 0)
-    const effectiveTotalQuestions = totalQuestions - skippedQuestions
-    
-    const completedSectionQuestions = questions.slice(0, quizState.currentSection).reduce((sum, section) => sum + section.length, 0)
-    const currentProgress = completedSectionQuestions + quizState.currentQuestion + 1
-    
-    return effectiveTotalQuestions > 0 ? (currentProgress / effectiveTotalQuestions) * 100 : 0
-  }, [quizState.currentSection, quizState.currentQuestion, quizState.skippedSections])
+    const totalSteps = 5 // Average expected questions in the flow
+    const currentStep = quizState.questionHistory.length + 1
+    return Math.min((currentStep / totalSteps) * 100, 90) // Cap at 90% until completion
+  }, [quizState.questionHistory])
 
   const goBack = () => {
     if (quizState.screenHistory.length > 0) {
@@ -564,80 +687,71 @@ export default function QuizPage() {
     }, 1000)
   }
 
-  // New quiz navigation functions
+  // New quiz navigation functions for conditional flow
   const selectAnswer = (optionIndex: number) => {
-    const questionId = `${quizState.currentSection}-${quizState.currentQuestion}`
-    const currentQuestionData = questions[quizState.currentSection]?.[quizState.currentQuestion]
-    
-    if (!currentQuestionData) return
+    const currentQuestion = getCurrentQuestion()
+    if (!currentQuestion) return
 
-    let newAnswers = { ...quizState.answers }
+    const selectedOption = currentQuestion.options[optionIndex]
+    if (!selectedOption) return
+
+    // Store the answer
+    const newAnswers = { ...quizState.answers }
+    newAnswers[quizState.currentQuestionId] = optionIndex
     
-    if (currentQuestionData.type === 'single') {
-      newAnswers[questionId] = optionIndex
-      updateQuizState({ answers: newAnswers })
-      
-      // Auto-advance to next question after a short delay for single choice questions
-      setTimeout(() => {
-        nextQuestion()
-      }, 800)
-    } else if (currentQuestionData.type === 'multi') {
-      const currentSelection = newAnswers[questionId] as number[] || []
-      if (currentSelection.includes(optionIndex)) {
-        newAnswers[questionId] = currentSelection.filter(i => i !== optionIndex)
-      } else {
-        newAnswers[questionId] = [...currentSelection, optionIndex]
-      }
-      updateQuizState({ answers: newAnswers })
+    // Update pathway if specified
+    let newPathway = quizState.pathway
+    if ('pathway' in selectedOption && selectedOption.pathway) {
+      newPathway = selectedOption.pathway
     }
+    
+    updateQuizState({ 
+      answers: newAnswers,
+      pathway: newPathway
+    })
+    
+    // Auto-advance after a short delay
+    setTimeout(() => {
+      handleOptionSelection(selectedOption)
+    }, 800)
   }
 
-  const nextQuestion = () => {
-    const currentSectionQuestions = questions[quizState.currentSection]
+  const handleOptionSelection = (selectedOption: any) => {
+    // Check if this is an exit point (has recommendation)
+    if (selectedOption.exit && selectedOption.recommendation) {
+      // Complete quiz with this recommendation
+      completeQuiz(selectedOption.recommendation)
+      return
+    }
     
-    if (quizState.currentQuestion < currentSectionQuestions.length - 1) {
-      // Move to next question in current section
-      updateQuizState({ currentQuestion: quizState.currentQuestion + 1 })
-    } else if (quizState.currentSection < questions.length - 1) {
-      // Moving to next section - check if we should skip any sections
-      let nextSection = quizState.currentSection + 1
-      const skippedSections = [...quizState.skippedSections]
-      
-      // Check if we should skip the next section(s)
-      while (nextSection < questions.length && shouldSkipSection(nextSection)) {
-        console.log(`🎯 Adaptive Quiz: Skipping section ${nextSection} (${sections[nextSection]?.title})`)
-        skippedSections.push(nextSection)
-        nextSection++
-      }
-      
-      if (nextSection < questions.length) {
-        // Move to first question of next non-skipped section
-        updateQuizState({ 
-          currentSection: nextSection,
-          currentQuestion: 0,
-          skippedSections: skippedSections
-        })
-      } else {
-        // All remaining sections were skipped - complete quiz
-        updateQuizState({ skippedSections: skippedSections })
-        calculateResults()
-      }
+    // Check if there's a next question to navigate to
+    if (selectedOption.nextQuestion) {
+      // Move to the next question in the flow
+      const newHistory = [...quizState.questionHistory, quizState.currentQuestionId]
+      updateQuizState({
+        currentQuestionId: selectedOption.nextQuestion,
+        questionHistory: newHistory
+      })
     } else {
-      // Quiz complete - calculate results
-      calculateResults()
+      // Fallback - should not happen with proper flow setup
+      console.warn('No next question or exit defined for option:', selectedOption)
     }
   }
 
   const previousQuestion = () => {
-    if (quizState.currentQuestion > 0) {
-      // Go back one question in current section
-      updateQuizState({ currentQuestion: quizState.currentQuestion - 1 })
-    } else if (quizState.currentSection > 0) {
-      // Go back to last question of previous section
-      const prevSectionQuestions = questions[quizState.currentSection - 1]
+    if (quizState.questionHistory.length > 0) {
+      // Go back to previous question
+      const newHistory = [...quizState.questionHistory]
+      const previousQuestionId = newHistory.pop()!
+      
+      // Remove the current answer
+      const newAnswers = { ...quizState.answers }
+      delete newAnswers[quizState.currentQuestionId]
+      
       updateQuizState({ 
-        currentSection: quizState.currentSection - 1,
-        currentQuestion: prevSectionQuestions.length - 1
+        currentQuestionId: previousQuestionId,
+        questionHistory: newHistory,
+        answers: newAnswers
       })
     } else {
       // Go back to start
@@ -645,22 +759,15 @@ export default function QuizPage() {
     }
   }
 
-  const calculateResults = async () => {
-    // Use the already calculated and memoized scores
-    const sortedResults = Object.entries(calculateScores)
-      .sort(([, a], [, b]) => b - a)
-      .slice(0, 3)
-
-    const topRecommendation = sortedResults[0]?.[0] || 'Digital Marketing'
-    
+  const completeQuiz = async (recommendation: string) => {
     updateQuizState({ 
-      finalRecommendation: topRecommendation,
+      finalRecommendation: recommendation,
       currentScreen: 'recommendation' 
     })
 
     // Save final recommendation to localStorage
     const quizResults = {
-      finalRecommendation: topRecommendation,
+      finalRecommendation: recommendation,
       completedAt: new Date().toISOString(),
       emailSent: false
     }
@@ -673,8 +780,8 @@ export default function QuizPage() {
         subject: 'Your Perfect Tech Career Match - Aco NextGen Scholarship',
         firstName: quizState.userFirstName,
         lastName: quizState.userLastName,
-        recommendation: topRecommendation,
-        rationale: generateRationale(topRecommendation)
+        recommendation: recommendation,
+        rationale: generateRationale(recommendation)
       }
       
       console.log('Sending email with data:', emailData)
@@ -685,12 +792,12 @@ export default function QuizPage() {
         body: JSON.stringify(emailData)
       })
       
-      console.log(' Email API response status:', response.status)
+      console.log('Email API response status:', response.status)
       console.log('Email API response ok:', response.ok)
       
       if (response.ok) {
         const responseData = await response.json()
-        console.log(' Email sent successfully:', responseData)
+        console.log('Email sent successfully:', responseData)
         setEmailSent(true)
         setToastMessage(`Results sent to ${quizState.userEmail} automatically!`)
         setShowToast(true)
@@ -704,29 +811,18 @@ export default function QuizPage() {
         }
       } else {
         const errorData = await response.text()
-        console.error(' Email API error response:', errorData)
-        console.error(' Email sending failed with status:', response.status)
+        console.error('Email API error response:', errorData)
+        console.error('Email sending failed with status:', response.status)
       }
     } catch (error) {
-      console.error(' Error sending email automatically:', error)
-      console.error(' Full error details:', error.message)
+      console.error('Error sending email automatically:', error)
+      console.error('Full error details:', error instanceof Error ? error.message : 'Unknown error')
     }
   }
 
   const isCurrentQuestionAnswered = () => {
-    const questionId = `${quizState.currentSection}-${quizState.currentQuestion}`
-    const answer = quizState.answers[questionId]
-    const currentQuestionData = questions[quizState.currentSection]?.[quizState.currentQuestion]
-    
-    if (!currentQuestionData) return false
-    
-    if (currentQuestionData.type === 'single') {
-      return typeof answer === 'number'
-    } else if (currentQuestionData.type === 'multi') {
-      return Array.isArray(answer) && answer.length > 0
-    }
-    
-    return false
+    const answer = quizState.answers[quizState.currentQuestionId]
+    return typeof answer === 'number'
   }
 
   // Auto-hide toast after 4 seconds
@@ -795,11 +891,10 @@ export default function QuizPage() {
       finalRecommendation: '',
       currentScreen: 'email-capture',
       screenHistory: [],
-      currentSection: 0,
-      currentQuestion: 0,
+      currentQuestionId: 'Q1',
+      questionHistory: [],
       answers: {},
-      skippedSections: [],
-      adaptiveEnabled: true
+      pathway: ''
     })
     
     setEmailSent(false)
@@ -807,24 +902,33 @@ export default function QuizPage() {
 
   const generateRationale = (recommendation: string) => {
     const rationales: Record<string, string> = {
-      'Graphic Design': 'Based on your interest in visual design and brand aesthetics, Graphic Design is perfect for you! You\'ll create compelling logos, marketing materials, and visual identities that tell powerful brand stories.',
-      'Product Design Mastery': 'Your passion for user experiences and interfaces makes Product Design Mastery an ideal fit! You\'ll create wireframes, prototypes, and user experiences that directly impact how people interact with digital products.',
-      'Front-end Web Development': 'Your enthusiasm for building user-facing components aligns perfectly with Front-end Web Development! You\'ll bring designs to life using HTML, CSS, JavaScript, and modern frameworks.',
-      'Backend Web Development': 'Your interest in server-side logic and databases makes Backend Web Development a great match! You\'ll build the robust systems and APIs that power modern applications.',
-      'Full Stack Programming': 'Your desire to work across both front-end and back-end makes Full Stack Programming perfect for you! You\'ll have the versatility to build complete web applications from start to finish.',
-      'Data Analysis': 'Your fascination with datasets and insights makes Data Analysis an excellent choice! You\'ll transform raw data into actionable business intelligence through reports and visualizations.',
-      'Dev Ops': 'Your interest in automation and infrastructure aligns perfectly with DevOps! You\'ll streamline development processes and build scalable, reliable systems.',
-      'Digital Marketing': 'Your enthusiasm for online marketing campaigns makes Digital Marketing ideal for you! You\'ll drive growth through paid advertising, social media, and email marketing strategies.',
-      'SEO Training': 'Your interest in organic traffic and search optimization makes SEO Training perfect for you! You\'ll help websites rank higher and attract more qualified visitors.',
-      'Cyber Security': 'Your curiosity about system security makes Cyber Security an excellent fit! You\'ll protect organizations from threats through penetration testing and security protocols.',
-      'Product Management': 'Your leadership interests and desire to coordinate teams makes Product Management ideal for you! You\'ll guide product strategy and work with cross-functional teams to deliver successful products.',
-      'Web Design (WordPress)': 'Your interest in website creation makes WordPress Web Design perfect for you! You\'ll build beautiful, functional websites using the world\'s most popular content management system.',
-      'Business Model Mastery': 'Your strategic thinking and business interests make Business Model Mastery ideal for you! You\'ll learn to create, analyze, and optimize business models for success.',
-      'Cloud Computing': 'Your interest in modern infrastructure makes Cloud Computing a great choice! You\'ll deploy and manage applications on cutting-edge cloud platforms.',
-      'Office Suite': 'Your practical approach to productivity makes Office Suite training perfect for you! You\'ll master essential business tools that are valuable in any career.'
+      'Web Development Fundamentals': 'Perfect! You want to start your coding journey and get job-ready quickly. This course will give you the essential web development skills needed to land your first tech job.',
+      'Beginner Coding Bootcamp': 'Excellent choice! You\'re interested in coding as a hobby or personal project. This bootcamp will teach you the fundamentals at your own pace without the pressure of job hunting.',
+      'Advanced Front-End Development Program': 'Great match! You have coding experience and want to specialize in user interfaces. You\'ll master modern frontend frameworks and advanced UI development techniques.',
+      'Backend Development Professional Track': 'Perfect fit! You have coding experience and want to work with databases and servers. You\'ll become proficient in server-side development and API creation.',
+      'Complete Full-Stack Developer Program': 'Ideal choice! You have coding experience and want to build complete applications. You\'ll master both frontend and backend development for maximum versatility.',
+      'Graphic Design Bootcamp': 'Excellent! You want to get into graphic design quickly. This bootcamp will fast-track your visual design skills for immediate career opportunities.',
+      'UX/UI Design Essentials': 'Perfect match! You want to focus on user experience and interface design. You\'ll learn to create intuitive, user-friendly digital experiences.',
+      'WordPress Web Design': 'Great choice! You want to build websites using drag-and-drop tools. WordPress is perfect for creating professional websites without deep coding knowledge.',
+      'Freelance Graphic Designer Course': 'Ideal for you! You want to start your own graphic design business. This course teaches both design skills and freelancing business strategies.',
+      'Freelance UX/UI Designer Track': 'Perfect fit! You want to work independently as a UX/UI designer. You\'ll learn design skills plus how to run a successful design freelance business.',
+      'WordPress Freelancer Program': 'Excellent choice! You want to build WordPress websites for clients. This program teaches both technical skills and client management.',
+      'Professional Graphic Design Program': 'Great match! You want to become a professional with strong graphic design skills. This comprehensive program builds mastery for long-term career success.',
+      'Complete UX/UI Design Program': 'Perfect! You want comprehensive product design skills for long-term success. This program covers everything from user research to advanced prototyping.',
+      'Advanced WordPress Development': 'Ideal choice! You want advanced WordPress skills for professional development. You\'ll learn custom themes, plugins, and advanced functionality.',
+      'Cyber Security (Foundations Course)': 'Perfect starting point! You want to try cybersecurity basics first. This foundation course lets you explore the field before diving deeper.',
+      'Ethical Hacking and Pentesting': 'Excellent match! You want to become a penetration tester or ethical hacker. You\'ll learn to find vulnerabilities and protect systems from cyber threats.',
+      'Bug Bounty Program': 'Great choice! You want to find and report security vulnerabilities for rewards. This program teaches you to discover bugs that companies will pay you to find.',
+      'Digital Forensics': 'Perfect fit! You want to investigate cyber incidents and analyze digital evidence. You\'ll learn to uncover what happened during security breaches.',
+      'Governance, Risk, and Compliance (GRC)': 'Ideal choice! You want to work in cybersecurity governance and compliance. You\'ll learn to manage risk and ensure organizations meet security standards.',
+      'Data Analysis': 'Excellent match! You like working with spreadsheets and finding trends. You\'ll learn to extract insights from data and create compelling visualizations.',
+      'SEO Training': 'Perfect choice! You\'re curious about how websites rank on Google. You\'ll master search engine optimization to help websites get discovered online.',
+      'Office Suite': 'Great fit! You want to help teams stay organized using productivity tools. You\'ll become an expert in Word, Excel, PowerPoint, and team collaboration.',
+      'Digital Marketing': 'Ideal match! You love social media and creating content. You\'ll learn to run ads, grow brands, and drive business results through digital channels.',
+      'Graphic Design Basics': 'Perfect starting point! You want to learn design for personal projects or freelancing. This course teaches fundamental design principles and tools.'
     }
     
-    return rationales[recommendation] || courses[recommendation]?.description || 'This track aligns perfectly with your interests and will provide you with valuable skills in the digital multimedia industry!'
+    return rationales[recommendation as keyof typeof rationales] || courses[recommendation as keyof typeof courses]?.description || 'This track aligns perfectly with your interests and will provide you with valuable skills in the tech industry!'
   }
 
   return (
@@ -1101,7 +1205,7 @@ export default function QuizPage() {
                   <ArrowLeft className="w-4 h-4" /> Back
                 </button>
                 <span className="text-sm font-medium text-aco-navy font-sans">
-                  Section {quizState.currentSection + 1} of {sections.length} - Question {quizState.currentQuestion + 1}
+                  Question {quizState.questionHistory.length + 1}
                 </span>
               </div>
               
@@ -1117,30 +1221,34 @@ export default function QuizPage() {
 
               {/* Section Info */}
               <div className="mb-6">
-                <div className="text-2xl md:text-3xl font-black text-aco-cyan mb-2 font-heading">{sections[quizState.currentSection]?.title}</div>
-                <div className="text-lg md:text-xl font-extrabold text-gray-600 font-sans">{sections[quizState.currentSection]?.subtitle}</div>
+                <div className="text-2xl md:text-3xl font-black text-aco-cyan mb-2 font-heading">{sections[0]?.title}</div>
+                <div className="text-lg md:text-xl font-extrabold text-gray-600 font-sans">{sections[0]?.subtitle}</div>
               </div>
               
               {/* Question */}
               <h2 className="text-3xl md:text-4xl font-bold font-heading text-aco-navy mb-4 text-center leading-tight">
-                {questions[quizState.currentSection]?.[quizState.currentQuestion]?.question}
+                {getCurrentQuestion()?.question}
               </h2>
-              
-              {/* Question Type Indicator */}
-              {questions[quizState.currentSection]?.[quizState.currentQuestion]?.type === 'multi' && (
-                <p className="text-sm text-aco-orange mb-6 text-center font-medium">
-                  Select all that apply
-                </p>
-              )}
               
               {/* Options */}
               <div className="space-y-4 mb-8">
-                {questions[quizState.currentSection]?.[quizState.currentQuestion]?.options.map((option, index) => {
-                  const questionId = `${quizState.currentSection}-${quizState.currentQuestion}`
-                  const currentAnswer = quizState.answers[questionId]
-                  const isSelected = questions[quizState.currentSection]?.[quizState.currentQuestion]?.type === 'single' 
-                    ? currentAnswer === index 
-                    : Array.isArray(currentAnswer) && currentAnswer.includes(index)
+                {getCurrentQuestion()?.options.map((option, index) => {
+                  const currentAnswer = quizState.answers[quizState.currentQuestionId]
+                  const isSelected = currentAnswer === index
+
+                  const getIconForOption = (questionId: string, optionIndex: number, optionIcon?: string) => {
+                    if (questionId === 'Q1') {
+                      switch (optionIcon) {
+                        case 'code': return <Code className="w-6 h-6" />
+                        case 'palette': return <Palette className="w-6 h-6" />
+                        case 'shield': return <Shield className="w-6 h-6" />
+                        case 'bar-chart': return <BarChart3 className="w-6 h-6" />
+                        case 'megaphone': return <Megaphone className="w-6 h-6" />
+                        default: return <Circle className="w-6 h-6" />
+                      }
+                    }
+                    return isSelected ? <CheckCircle2 className="w-6 h-6" /> : <Circle className="w-6 h-6" />
+                  }
 
                   return (
                     <button
@@ -1157,16 +1265,7 @@ export default function QuizPage() {
                           ? 'bg-aco-orange' 
                           : 'bg-gradient-to-r from-aco-teal to-aco-cyan'
                       }`}>
-                        {/* Use different icons based on question content */}
-                        {quizState.currentSection === 0 && quizState.currentQuestion === 0 && index === 0 && <Palette className="w-6 h-6" />}
-                        {quizState.currentSection === 0 && quizState.currentQuestion === 0 && index === 1 && <Code className="w-6 h-6" />}
-                        {quizState.currentSection === 0 && quizState.currentQuestion === 0 && index === 2 && <BarChart3 className="w-6 h-6" />}
-                        {quizState.currentSection === 0 && quizState.currentQuestion === 0 && index === 3 && <Megaphone className="w-6 h-6" />}
-                        {quizState.currentSection === 0 && quizState.currentQuestion === 0 && index === 4 && <Shield className="w-6 h-6" />}
-                        {quizState.currentSection === 0 && quizState.currentQuestion === 0 && index === 5 && <Target className="w-6 h-6" />}
-                        {!(quizState.currentSection === 0 && quizState.currentQuestion === 0) && (
-                          isSelected ? <CheckCircle2 className="w-6 h-6" /> : <Circle className="w-6 h-6" />
-                        )}
+                        {getIconForOption(quizState.currentQuestionId, index, (option as any).icon)}
                       </div>
                       <span className={`text-lg font-medium font-sans leading-relaxed ${
                         isSelected ? 'text-aco-navy' : 'text-gray-700 group-hover:text-aco-navy'
@@ -1177,24 +1276,6 @@ export default function QuizPage() {
                   )
                 })}
               </div>
-
-              {/* Navigation - Only show for multi-select questions */}
-              {questions[quizState.currentSection]?.[quizState.currentQuestion]?.type === 'multi' && (
-                <div className="flex justify-center">
-                  <button
-                    onClick={nextQuestion}
-                    disabled={!isCurrentQuestionAnswered()}
-                    className="flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-aco-orange to-orange-500 text-white font-bold rounded-xl hover:from-orange-600 hover:to-aco-orange transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl font-heading disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                  >
-                    {(() => {
-                      const isLastSection = quizState.currentSection === questions.length - 1
-                      const isLastQuestion = quizState.currentQuestion === (questions[quizState.currentSection]?.length || 0) - 1
-                      return isLastSection && isLastQuestion ? 'Complete Quiz' : 'Next Question'
-                    })()}
-                    <ArrowRight className="w-5 h-5" />
-                  </button>
-                </div>
-              )}
             </div>
           )}
 
@@ -1228,14 +1309,11 @@ export default function QuizPage() {
                 <p className="text-gray-600 font-comfortaa">
                   We'll send this personalized recommendation to <strong>{quizState.userEmail}</strong> shortly.
                 </p>
-                {quizState.skippedSections.length > 0 && (
-                  <div className="mt-3 p-3 bg-green-50 rounded-lg border border-green-200">
-                    <p className="text-sm text-green-700 font-medium">
-                      🎯 Smart Quiz: We optimized your experience by focusing on relevant questions 
-                      ({quizState.skippedSections.length} section{quizState.skippedSections.length > 1 ? 's' : ''} skipped for precision)
-                    </p>
-                  </div>
-                )}
+                <div className="mt-3 p-3 bg-green-50 rounded-lg border border-green-200">
+                  <p className="text-sm text-green-700 font-medium">
+                    Smart Quiz: We found your perfect match in just {quizState.questionHistory.length + 1} questions!
+                  </p>
+                </div>
               </div>
 
               {/* Telegram Group Invitation */}
@@ -1264,7 +1342,7 @@ export default function QuizPage() {
               </div>
               
               {/* Optional restart button */}
-              <div className="text-center">
+              {/* <div className="text-center">
                 <button
                   onClick={restartQuiz}
                   className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-transparent border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors font-sans"
@@ -1272,7 +1350,7 @@ export default function QuizPage() {
                   <RefreshCw className="w-4 h-4" />
                   Take New Quiz
                 </button>
-              </div>
+              </div> */}
             </div>
           )}
           
