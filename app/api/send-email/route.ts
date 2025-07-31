@@ -67,6 +67,11 @@ export async function POST(request: NextRequest) {
                 <a href="https://aconextgenscholarship.com" class="button">Apply for Scholarship</a>
               </div>
               
+              <div style="text-align: center; margin: 20px 0;">
+                <a href="https://t.me/+RhDh1qlwurNmODlk" style="display: inline-block; background: linear-gradient(135deg, #0088cc 0%, #229ED9 100%); color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">Join Our Telegram Community</a>
+                <p style="margin-top: 10px; color: #666; font-size: 14px;">Connect with fellow learners and get exclusive updates</p>
+              </div>
+              
               <p><strong>Ready to transform your career?</strong> The 4th industrial revolution is here, and we're here to help you thrive in it.</p>
             </div>
             
