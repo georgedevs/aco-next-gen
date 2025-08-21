@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Plus_Jakarta_Sans, Space_Grotesk, Satisfy, Kalam, Comfortaa } from "next/font/google"
+import { Analytics } from '@vercel/analytics/react'
 import "./globals.css"
 
 // Plus Jakarta Sans 
@@ -131,7 +132,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${plusJakartaSans.variable} ${spaceGrotesk.variable} ${satisfy.variable} ${kalam.variable} ${comfortaa.variable} font-sans`}>{children}</body>
+      <body className={`${plusJakartaSans.variable} ${spaceGrotesk.variable} ${satisfy.variable} ${kalam.variable} ${comfortaa.variable} font-sans`}>
+        {children}
+        <Analytics />
+      </body>
     </html>
   )
 }
