@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo, useCallback } from "react"
 import Image from "next/image"
+import { saveQuizParticipant } from "../../lib/quiz-firestore"
 import { 
   ArrowLeft, 
   ArrowRight, 
@@ -773,8 +774,21 @@ export default function QuizPage() {
     }
     localStorage.setItem('acoQuizResults', JSON.stringify(quizResults))
 
-    // Automatically send email results
+    // Save participant data to Firebase first
     try {
+      const participantData = {
+        email: quizState.userEmail,
+        firstName: quizState.userFirstName,
+        lastName: quizState.userLastName,
+        phone: quizState.userPhone,
+        location: quizState.userLocation,
+        courseRecommendation: recommendation,
+        rationale: generateRationale(recommendation)
+      }
+      
+      await saveQuizParticipant(participantData)
+      
+      // Now send email results
       const emailData = {
         to: quizState.userEmail,
         subject: 'Your Perfect Tech Career Match - Aco NextGen Scholarship',
@@ -784,20 +798,14 @@ export default function QuizPage() {
         rationale: generateRationale(recommendation)
       }
       
-      console.log('Sending email with data:', emailData)
-      
       const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(emailData)
       })
       
-      console.log('Email API response status:', response.status)
-      console.log('Email API response ok:', response.ok)
-      
       if (response.ok) {
         const responseData = await response.json()
-        console.log('Email sent successfully:', responseData)
         setEmailSent(true)
         setToastMessage(`Results sent to ${quizState.userEmail} automatically!`)
         setShowToast(true)
